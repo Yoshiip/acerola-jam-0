@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk0tol0ywahyh"]
+
+[ext_resource type="PackedScene" uid="uid://oib8ynwupwhw" path="res://hotel/lights/light.blend" id="1_dw4qh"]
+
+[node name="light" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+metadata/_edit_group_ = true
+
+[node name="mesh" parent="." instance=ExtResource("1_dw4qh")]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.2, 0)
+shadow_enabled = true
+spot_range = 6.0

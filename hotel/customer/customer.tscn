@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc1fb8ic1xkm5"]
+
+[ext_resource type="Script" path="res://hotel/customer/customer.gd" id="1_xvbo5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xed73"]
+size = Vector3(1, 2, 1)
+
+[node name="customer" type="CharacterBody3D" groups=["Customer"]]
+script = ExtResource("1_xvbo5")
+
+[node name="mesh" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.850256, 0)
+size = Vector3(1, 1.6, 0.4)
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_xed73")

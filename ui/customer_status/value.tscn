@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dwvjet6o5vaq4"]
+
+[node name="value" type="Label"]
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+text = "+2"
+horizontal_alignment = 2

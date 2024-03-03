@@ -1,0 +1,238 @@
+[gd_scene load_steps=18 format=3 uid="uid://x1v2lv7gfck7"]
+
+[ext_resource type="Script" path="res://hotel.gd" id="1_361b0"]
+[ext_resource type="Material" uid="uid://b84nhftty1aor" path="res://hotel/materials/wood_floor.tres" id="2_ktmdo"]
+[ext_resource type="PackedScene" uid="uid://bxceah5i7vtbr" path="res://player/player.tscn" id="2_m6kxa"]
+[ext_resource type="PackedScene" uid="uid://dxrl2ofx36es4" path="res://hotel/floors/ground_floor.tscn" id="5_tq7p6"]
+[ext_resource type="Script" path="res://ui/inventory_container_ui.gd" id="5_vrfpf"]
+[ext_resource type="Script" path="res://ui/customer_status/customer_status_ui.gd" id="6_nwrmn"]
+[ext_resource type="Texture2D" uid="uid://c5berrj8j5mlh" path="res://texture/roof.png" id="10_fecks"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7g1ar"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_huj84"]
+sky_material = SubResource("ProceduralSkyMaterial_7g1ar")
+
+[sub_resource type="Environment" id="Environment_5n30i"]
+background_mode = 1
+sky = SubResource("Sky_huj84")
+ambient_light_source = 2
+ambient_light_color = Color(0.858824, 0.8, 0.658824, 1)
+ambient_light_energy = 0.56
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qn7g3"]
+data = PackedVector3Array(32, 0, 32, -32, 0, 32, 32, 0, -32, -32, 0, 32, -32, 0, -32, 32, 0, -32)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2w0di"]
+size = Vector2(64, 64)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qp7ok"]
+albedo_texture = ExtResource("10_fecks")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gq7xe"]
+material = SubResource("StandardMaterial3D_qp7ok")
+size = Vector2(64, 64)
+
+[sub_resource type="Theme" id="Theme_yj6o4"]
+Label/colors/font_outline_color = Color(0.054902, 0.0745098, 0.109804, 1)
+Label/constants/outline_size = 4
+Label/font_sizes/font_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kylkn"]
+bg_color = Color(1, 1, 1, 0.498039)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.678431, 0.678431, 0.678431, 0.498039)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0, 0, 0, 0.247059)
+shadow_size = 1
+shadow_offset = Vector2(0, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hscfe"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_left = 8.0
+expand_margin_top = 2.0
+expand_margin_right = 8.0
+expand_margin_bottom = 2.0
+
+[node name="hotel" type="Node3D"]
+script = ExtResource("1_361b0")
+floor = 0
+
+[node name="world_environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5n30i")
+
+[node name="floor" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+metadata/_edit_lock_ = true
+
+[node name="collision" type="CollisionShape3D" parent="floor"]
+shape = SubResource("ConcavePolygonShape3D_qn7g3")
+
+[node name="mesh" type="MeshInstance3D" parent="floor"]
+material_override = ExtResource("2_ktmdo")
+mesh = SubResource("PlaneMesh_2w0di")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="roof" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 4, 0)
+mesh = SubResource("PlaneMesh_gq7xe")
+metadata/_edit_lock_ = true
+
+[node name="player" parent="." instance=ExtResource("2_m6kxa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.7225)
+
+[node name="ground_floor" parent="." instance=ExtResource("5_tq7p6")]
+
+[node name="canvas" type="CanvasLayer" parent="."]
+
+[node name="container" type="Control" parent="canvas"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_yj6o4")
+
+[node name="crosshair" type="Panel" parent="canvas/container"]
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kylkn")
+metadata/_edit_lock_ = true
+
+[node name="inventory" type="VBoxContainer" parent="canvas/container"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -157.0
+offset_top = -85.0
+offset_right = 157.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+script = ExtResource("5_vrfpf")
+
+[node name="items" type="HBoxContainer" parent="canvas/container/inventory"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+alignment = 1
+
+[node name="holding_label" type="Label" parent="canvas/container/inventory"]
+use_parent_material = true
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+text = "no item..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="help" type="Control" parent="canvas/container"]
+custom_minimum_size = Vector2(0, 144)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 28.5
+offset_top = -72.0
+offset_right = 195.5
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="display_name" type="Label" parent="canvas/container/help"]
+layout_mode = 1
+offset_right = 32.0
+offset_bottom = 17.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_hscfe")
+text = "client"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="description" type="Label" parent="canvas/container/help"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "Peut vous suivre si vous utilisez
+le sifflet."
+autowrap_mode = 3
+
+[node name="customer_status" type="VBoxContainer" parent="canvas/container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -166.0
+offset_top = -86.0
+offset_right = -41.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+script = ExtResource("6_nwrmn")
+
+[node name="container" type="GridContainer" parent="canvas/container/customer_status"]
+layout_mode = 2
+theme_override_constants/v_separation = -4
+columns = 2
+
+[node name="total" type="Label" parent="canvas/container/customer_status"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 20
+text = "20/20"
+horizontal_alignment = 2
+
+[node name="history" type="HBoxContainer" parent="canvas/container/customer_status"]
+layout_mode = 2
+alignment = 2
+
+[node name="total2" type="Label" parent="canvas/container/customer_status/history"]
+layout_mode = 2
+text = "20/20"
+horizontal_alignment = 2
+
+[node name="props" type="Node3D" parent="."]
+metadata/_edit_lock_ = true

@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://dreyuuynfn42m"]
+
+[ext_resource type="Script" path="res://hotel/rooms/lift/lift.gd" id="1_ualsn"]
+[ext_resource type="Script" path="res://hotel/rooms/lift/lift_button.gd" id="2_01krq"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_73ynx"]
+size = Vector2(8, 8)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hscwe"]
+data = PackedVector3Array(4, 0, 4, -4, 0, 4, 4, 0, -4, -4, 0, 4, -4, 0, -4, 4, 0, -4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yq3ou"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="lift" type="StaticBody3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_ualsn")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+mesh = SubResource("PlaneMesh_73ynx")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_hscwe")
+
+[node name="panel" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.5)
+use_collision = true
+size = Vector3(0.6, 1, 0.2)
+
+[node name="-" type="Area3D" parent="panel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0.101)
+script = ExtResource("2_01krq")
+delta = -1
+
+[node name="text" type="Label3D" parent="panel/-"]
+text = "-"
+
+[node name="collision" type="CollisionShape3D" parent="panel/-"]
+shape = SubResource("BoxShape3D_yq3ou")
+
+[node name="go" type="Area3D" parent="panel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0.101)
+script = ExtResource("2_01krq")
+
+[node name="text" type="Label3D" parent="panel/go"]
+text = "GO"
+
+[node name="collision" type="CollisionShape3D" parent="panel/go"]
+shape = SubResource("BoxShape3D_yq3ou")
+
+[node name="current_floor" type="Label3D" parent="panel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.101)
+text = "0"
+
+[node name="+" type="Area3D" parent="panel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0.101)
+script = ExtResource("2_01krq")
+delta = 1
+
+[node name="text" type="Label3D" parent="panel/+"]
+text = "+"
+
+[node name="collision" type="CollisionShape3D" parent="panel/+"]
+shape = SubResource("BoxShape3D_yq3ou")

@@ -1,0 +1,99 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqihys3h8tuyu"]
+
+[ext_resource type="PackedScene" uid="uid://b57chr0wyldvf" path="res://hotel/walls/marker/wall_marker.tscn" id="2_wlbf4"]
+
+[node name="1" type="Node3D"]
+
+[node name="markers" type="Node3D" parent="."]
+
+[node name="3" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+left = true
+front = true
+
+[node name="8" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -4)
+right = true
+
+[node name="9" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 4)
+right = true
+
+[node name="10WALL" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 12)
+force_wall = true
+right = true
+
+[node name="11WALL" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 16)
+force_wall = true
+front = true
+
+[node name="12" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 16)
+front = true
+
+[node name="13" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 16)
+front = true
+
+[node name="14WALL" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 16)
+force_wall = true
+front = true
+
+[node name="15WALL" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 12)
+force_wall = true
+left = true
+
+[node name="16" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 4)
+left = true
+
+[node name="17" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -4)
+left = true
+
+[node name="18WALL" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -12)
+force_wall = true
+left = true
+
+[node name="19WALL" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -16)
+force_wall = true
+back = true
+
+[node name="20" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -16)
+back = true
+
+[node name="21" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -16)
+back = true
+
+[node name="22WALL" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -16)
+force_wall = true
+back = true
+
+[node name="23WALL" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -12)
+force_wall = true
+right = true
+
+[node name="5" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+right = true
+front = true
+
+[node name="6" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+right = true
+back = true
+
+[node name="7" parent="markers" instance=ExtResource("2_wlbf4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+left = true
+back = true

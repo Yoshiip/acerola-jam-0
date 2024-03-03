@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://bxceah5i7vtbr"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_sffct"]
+[ext_resource type="Texture2D" uid="uid://ttqkb0fvada3" path="res://player/holding_indicator.png" id="2_s53ax"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xxsq6"]
+height = 1.8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4duq"]
+atlas = ExtResource("2_s53ax")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmrvq"]
+atlas = ExtResource("2_s53ax")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asbgv"]
+atlas = ExtResource("2_s53ax")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r142u"]
+atlas = ExtResource("2_s53ax")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tex3w"]
+atlas = ExtResource("2_s53ax")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1klch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4duq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmrvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_asbgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r142u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tex3w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_sffct")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_xxsq6")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+
+[node name="camera" type="Camera3D" parent="head"]
+current = true
+
+[node name="raycast" type="RayCast3D" parent="head/camera"]
+target_position = Vector3(0, 0, -3)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="holding_hint" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shaded = true
+sprite_frames = SubResource("SpriteFrames_1klch")
+frame_progress = 0.972443

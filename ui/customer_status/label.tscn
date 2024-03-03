@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://dxc5yc386far0"]
+
+[node name="label" type="Label"]
+text = "presence of noise"

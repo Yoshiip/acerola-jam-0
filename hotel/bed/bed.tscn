@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c873dx2f4c20c"]
+
+[ext_resource type="Script" path="res://hotel/bed/bed.gd" id="1_v0igl"]
+[ext_resource type="PackedScene" uid="uid://cn74majg6jfge" path="res://hotel/bed/bed.blend" id="2_ldq2p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvs6g"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6fv3b"]
+size = Vector3(1.6, 0.4, 2)
+
+[node name="bed" type="StaticBody3D" groups=["Interaction"]]
+script = ExtResource("1_v0igl")
+id = "bed"
+to_save = Array[String](["color"])
+hold_size = 0.25
+
+[node name="mesh" parent="." instance=ExtResource("2_ldq2p")]
+
+[node name="sheet" parent="mesh" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_uvs6g")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("BoxShape3D_6fv3b")
+
+[editable path="mesh"]
