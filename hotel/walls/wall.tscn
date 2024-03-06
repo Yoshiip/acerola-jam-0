@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn8mby0n6awb8"]
+[gd_scene load_steps=4 format=3 uid="uid://bn8mby0n6awb8"]
 
 [ext_resource type="PackedScene" uid="uid://bulqjtjqbr87b" path="res://hotel/walls/wall.blend" id="1_s771g"]
+[ext_resource type="Texture2D" uid="uid://ngn867vp3dos" path="res://rat/rat_hole.png" id="2_hayo0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hdatp"]
 size = Vector3(8, 4, 0.2)
@@ -14,3 +15,10 @@ collision_mask = 3
 [node name="collision_shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("BoxShape3D_hdatp")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.425, -0.101)
+pixel_size = 0.0065
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_hayo0")

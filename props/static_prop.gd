@@ -19,8 +19,8 @@ var holded : bool:
 		holded = value
 		$collision.disabled = holded
 
-func use(player : Player) -> void:
+func use(_player : Player) -> void:
 	pass
 
-func interact(player : Player) -> void:
+func interact(_player : Player) -> void:
 	pass

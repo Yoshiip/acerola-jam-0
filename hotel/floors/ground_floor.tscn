@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxrl2ofx36es4"]
+[gd_scene load_steps=11 format=3 uid="uid://dxrl2ofx36es4"]
 
 [ext_resource type="Texture2D" uid="uid://caflbme55r7oq" path="res://texture/carpet.png" id="1_d8uy6"]
 [ext_resource type="Material" uid="uid://c23r358dxftfr" path="res://hotel/materials/wall_wood.tres" id="2_7osdo"]
 [ext_resource type="PackedScene" uid="uid://dk0tol0ywahyh" path="res://hotel/lights/light.tscn" id="3_31vai"]
 [ext_resource type="PackedScene" uid="uid://b57chr0wyldvf" path="res://hotel/walls/marker/wall_marker.tscn" id="4_1m2e5"]
 [ext_resource type="Script" path="res://hotel/walls/marker/room_marker.gd" id="5_bgvc3"]
+[ext_resource type="Script" path="res://hotel/transition/end_day.gd" id="6_nw4g6"]
+[ext_resource type="PackedScene" uid="uid://h6h6smn3wsim" path="res://hotel/bell/bell.tscn" id="7_kfxyj"]
+[ext_resource type="PackedScene" uid="uid://dw6wfa50cpi4s" path="res://props/whistle/whistle.tscn" id="8_jpbl8"]
+[ext_resource type="PackedScene" uid="uid://dqt4u56ftr81e" path="res://props/magic_whistle/magic_whistle.tscn" id="9_582gv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jn56x"]
 
 [node name="ground_floor" type="Node3D"]
 
@@ -39,6 +45,8 @@ region_rect = Rect2(0, 0, 128, 1664)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4)
 material_override = ExtResource("2_7osdo")
 use_collision = true
+collision_layer = 3
+collision_mask = 3
 size = Vector3(3, 1, 1)
 
 [node name="light" parent="." instance=ExtResource("3_31vai")]
@@ -125,3 +133,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -10)
 gizmo_extents = 4.0
 script = ExtResource("5_bgvc3")
 right = true
+
+[node name="end_day" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116515, 1.05852, -4.10687)
+script = ExtResource("6_nw4g6")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="end_day"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="end_day"]
+shape = SubResource("BoxShape3D_jn56x")
+
+[node name="bell" parent="." instance=ExtResource("7_kfxyj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -4)
+
+[node name="whistle" parent="." instance=ExtResource("8_jpbl8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.103, 1.1, -4.186)
+
+[node name="magic_whistle" parent="." instance=ExtResource("9_582gv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.358, 1.1, -4.171)

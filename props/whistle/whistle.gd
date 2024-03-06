@@ -1,6 +1,7 @@
 extends RigidProp
 
 
+
 @onready var root : Hotel = get_tree().current_scene
 
 func use(player : Player) -> void:

@@ -5,14 +5,17 @@ extends StaticBody3D
 
 var assigned_to : CharacterBody3D
 
-var floor := 1
+var floor_number := 1
 @onready var root : Hotel = get_tree().current_scene
 
 var walls_color := "red"
 var floor_color := "red"
 
+var generate := true
+
 func _ready() -> void:
-	root.create_prop(root.ITEMS.bed, $bed_marker.global_position, $bed_marker.global_rotation)
+	if generate:
+		root.create_prop(root.ITEMS.bed, $bed_marker.global_position, $bed_marker.global_rotation)
 	$door/number.text = name
 
 func assign_to_nearest() -> void:

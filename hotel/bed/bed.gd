@@ -18,6 +18,6 @@ func _ready() -> void:
 	$mesh/sheet.set("surface_material_override/0", $mesh/sheet.get("surface_material_override/0").duplicate())
 	set_paint(color)
 
-func interact(player : Player) -> void:
+func interact(_player : Player) -> void:
 	var _keys := COLORS.keys()
 	set_paint(_keys[(_keys.find(color) + 1) % _keys.size()])

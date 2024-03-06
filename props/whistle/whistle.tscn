@@ -1,22 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://dw6wfa50cpi4s"]
 
 [ext_resource type="Script" path="res://props/whistle/whistle.gd" id="1_u0bkd"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_42cla"]
-albedo_color = Color(1, 0, 0, 1)
+[ext_resource type="PackedScene" uid="uid://lpoc8cly720l" path="res://props/whistle/whistle.blend" id="3_qntyh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2v5se"]
-size = Vector3(0.2, 0.2, 0.2)
+size = Vector3(0.2, 0.2, 0.4)
 
 [node name="whistle" type="RigidBody3D" groups=["Interaction"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_u0bkd")
+retrieve_data = true
 id = "whistle"
-
-[node name="mesh" type="CSGBox3D" parent="."]
-size = Vector3(0.2, 0.2, 0.2)
-material = SubResource("StandardMaterial3D_42cla")
 
 [node name="collision" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_2v5se")
+
+[node name="mesh" parent="." instance=ExtResource("3_qntyh")]
+
+[editable path="mesh"]

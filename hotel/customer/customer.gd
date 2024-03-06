@@ -22,6 +22,8 @@ extends CharacterBody3D
 
 @export var happiness := 0
 
+var nights_left := 2
+
 var room_assigned : Chamber
 
 const SPEED = 5.0
@@ -44,15 +46,15 @@ func _ready() -> void:
 func update_description() -> void:
 	var desc := ""
 	if is_instance_valid(room_assigned):
-		desc = str("Happiness: ", happiness)
+		desc += str("Stays for ", nights_left, " more nights\n")
 	else:
 		desc = "No room\n"
-	desc += "\n"
+		desc += str("Plans to stay ", nights_left, " nights\n")
 	desc += str("His favorite color is ", favorite_color, "\n")
-	if light: desc += str("love" if light == 1 else "hate" , " light\n")
-	if height: desc += str("love" if height == 1 else "hate" , " heights\n")
-	if smell: desc += str("love good" if smell == 1 else "love bad" , " smells\n")
-	if sounds: desc += str("love" if sounds == 1 else "hate" , " sounds\n")
+	#if light: desc += str("love" if light == 1 else "hate" , " light\n")
+	#if height: desc += str("love" if height == 1 else "hate" , " heights\n")
+	#if smell: desc += str("love good" if smell == 1 else "love bad" , " smells\n")
+	#if sounds: desc += str("love" if sounds == 1 else "hate" , " sounds\n")
 	description = desc
 
 func calculate_happiness() -> void:
@@ -66,6 +68,11 @@ func calculate_happiness() -> void:
 		if furniture.get("color") == favorite_color:
 			_summary.append([str("nice ", furniture.display_name, " color"), 1])
 	if !_has_bed: _summary.append(["no bed ?", -5])
+	
+	happiness = 0
+	for value in _summary:
+		happiness += value[1]
+	
 	root.get_node("canvas/container/customer_status").display(_summary)
 
 func _physics_process(delta: float) -> void:

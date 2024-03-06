@@ -13,7 +13,7 @@ const ACCEL_DEFAULT := 4
 const ACCEL_AIR := 1
 
 const DEFAULT_FOV := 75.0
-const ZOOM_FOV := 30.0
+const ZOOM_FOV := 60.0
 
 @onready var accel := ACCEL_DEFAULT
 var gravity := 9.8
@@ -99,22 +99,12 @@ func _place_prop() -> void:
 	set_current_item(current_item)
 
 func handle_raycast() -> void:
-	help_container.get_node("display_name").text = ""
-	help_container.get_node("description").text = ""
-	customer_status_ui.visible = false
 	if raycast.is_colliding():
 		var _collider = raycast.get_collider()
 		if _collider && _collider.has_method("interact"):
 			if Input.is_action_just_pressed("interact"):
 				_collider.interact(self)
-		if _collider && _collider.get("display_name") != null:
-			help_container.get_node("display_name").text = _collider.get("display_name")
-		if _collider && _collider.get("description") != null:
-			help_container.get_node("description").text = _collider.get("description")
-		if _collider && _collider.is_in_group("Customer"):
-			customer_status_ui.visible = true
 	if Input.is_action_just_pressed("pickup"):
-		
 		# pickup item
 		if raycast.is_colliding() && raycast.get_collider().is_in_group("Interaction"):
 			var _collider = raycast.get_collider()
@@ -132,6 +122,21 @@ func handle_raycast() -> void:
 		elif holding != null:
 			_place_prop()
 
+func update_ui() -> void:
+	help_container.get_node("display_name").text = ""
+	help_container.get_node("description").text = ""
+	var _zooming := Input.is_action_pressed("zoom")
+	if raycast.is_colliding():
+		var _collider := raycast.get_collider()
+		if !is_instance_valid(_collider):
+			return
+		if _collider.get("display_name") != null:
+			help_container.get_node("display_name").text = _collider.get("display_name")
+		if _collider.get("description") != null:
+			help_container.get_node("description").text = _collider.get("description")
+
+	help_container.visible = _zooming && help_container.get_node("display_name").text != ""
+	customer_status_ui.visible = _zooming && raycast.is_colliding() && raycast.get_collider().is_in_group("Customer")
 
 var holding_rotation : Vector2
 
@@ -172,7 +177,7 @@ func handle_inventory() -> void:
 
 
 
-func handle_holding(delta : float) -> void:
+func handle_holding() -> void:
 	$holding_hint.visible = false
 	if is_instance_valid(holding):
 		holding.scale = Vector3.ONE * (holding.get("hold_size") if holding.get("hold_size") != null else 1.0)
@@ -191,6 +196,8 @@ func handle_holding(delta : float) -> void:
 	elif inventory[current_item] != null:
 		inventory[current_item] = null
 		inventory_changed.emit()
+	else:
+		holding = null
 
 @onready var help_container := get_tree().current_scene.get_node("canvas/container/help")
 
@@ -207,9 +214,7 @@ func _physics_process(delta : float) -> void:
 	
 	if Input.is_action_pressed("zoom") && !holding:
 		$head/camera.fov = lerp($head/camera.fov, ZOOM_FOV, delta * 10.0)
-		help_container.visible = help_container.get_node("display_name").text != ""
 	else:
-		help_container.visible = false
 		$head/camera.fov = lerp($head/camera.fov, DEFAULT_FOV, delta * 10.0)
 	
 	var speed := SPEED_DEFAULT
@@ -221,7 +226,8 @@ func _physics_process(delta : float) -> void:
 
 	handle_raycast()
 	handle_inventory()
-	handle_holding(delta)
+	update_ui()
+	handle_holding()
 
 	#jumping and gravity
 	if is_on_floor():
@@ -240,4 +246,5 @@ func _physics_process(delta : float) -> void:
 	movement = velocity.lerp(direction * speed, accel * delta)
 	velocity = movement + gravity_vec
 	
-	move_and_slide()
+	if is_inside_tree():
+		move_and_slide()

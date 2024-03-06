@@ -69,6 +69,9 @@ collide_with_areas = true
 
 [node name="holding_hint" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+pixel_size = 0.0125
 shaded = true
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_1klch")
+autoplay = "default"
 frame_progress = 0.972443

@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Acerola Jam 0"
-run/main_scene="res://hotel.tscn"
+run/main_scene="res://hotel/hotel.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+PlayerData="*res://PlayerData.gd"
 
 [display]
 
@@ -23,6 +27,10 @@ window/size/window_width_override=960
 window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_owl/plugin.cfg")
 
 [input]
 
@@ -99,4 +107,9 @@ fullscreen={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
+gl_compatibility/driver="opengl3_angle"
+gl_compatibility/driver.windows="opengl3_angle"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/decals/filter=0
+textures/light_projectors/filter=0

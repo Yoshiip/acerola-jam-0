@@ -1,12 +1,15 @@
-[gd_scene load_steps=18 format=3 uid="uid://x1v2lv7gfck7"]
+[gd_scene load_steps=20 format=3 uid="uid://x1v2lv7gfck7"]
 
-[ext_resource type="Script" path="res://hotel.gd" id="1_361b0"]
-[ext_resource type="Material" uid="uid://b84nhftty1aor" path="res://hotel/materials/wood_floor.tres" id="2_ktmdo"]
-[ext_resource type="PackedScene" uid="uid://bxceah5i7vtbr" path="res://player/player.tscn" id="2_m6kxa"]
-[ext_resource type="PackedScene" uid="uid://dxrl2ofx36es4" path="res://hotel/floors/ground_floor.tscn" id="5_tq7p6"]
-[ext_resource type="Script" path="res://ui/inventory_container_ui.gd" id="5_vrfpf"]
-[ext_resource type="Script" path="res://ui/customer_status/customer_status_ui.gd" id="6_nwrmn"]
-[ext_resource type="Texture2D" uid="uid://c5berrj8j5mlh" path="res://texture/roof.png" id="10_fecks"]
+[ext_resource type="Script" path="res://hotel/hotel.gd" id="1_uo5k1"]
+[ext_resource type="Material" uid="uid://b84nhftty1aor" path="res://hotel/materials/wood_floor.tres" id="2_5u8o8"]
+[ext_resource type="Texture2D" uid="uid://c5berrj8j5mlh" path="res://texture/roof.png" id="3_0ahon"]
+[ext_resource type="PackedScene" uid="uid://bxceah5i7vtbr" path="res://player/player.tscn" id="4_oo632"]
+[ext_resource type="PackedScene" uid="uid://dxrl2ofx36es4" path="res://hotel/floors/ground_floor.tscn" id="5_boy7x"]
+[ext_resource type="Theme" uid="uid://cljv3o1v8gskw" path="res://hotel/theme.tres" id="6_1ca3e"]
+[ext_resource type="Script" path="res://ui/inventory_container_ui.gd" id="6_fj0gl"]
+[ext_resource type="Script" path="res://ui/customer_status/customer_status_ui.gd" id="7_yhv2t"]
+[ext_resource type="Script" path="res://hotel/generation.gd" id="8_xtxd2"]
+[ext_resource type="PackedScene" uid="uid://b3cvpg88gcth2" path="res://rat/rat.tscn" id="9_jggjy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7g1ar"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -33,17 +36,12 @@ data = PackedVector3Array(32, 0, 32, -32, 0, 32, 32, 0, -32, -32, 0, 32, -32, 0,
 size = Vector2(64, 64)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qp7ok"]
-albedo_texture = ExtResource("10_fecks")
+albedo_texture = ExtResource("3_0ahon")
 uv1_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gq7xe"]
 material = SubResource("StandardMaterial3D_qp7ok")
 size = Vector2(64, 64)
-
-[sub_resource type="Theme" id="Theme_yj6o4"]
-Label/colors/font_outline_color = Color(0.054902, 0.0745098, 0.109804, 1)
-Label/constants/outline_size = 4
-Label/font_sizes/font_size = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kylkn"]
 bg_color = Color(1, 1, 1, 0.498039)
@@ -69,8 +67,7 @@ expand_margin_right = 8.0
 expand_margin_bottom = 2.0
 
 [node name="hotel" type="Node3D"]
-script = ExtResource("1_361b0")
-floor = 0
+script = ExtResource("1_uo5k1")
 
 [node name="world_environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5n30i")
@@ -84,7 +81,7 @@ metadata/_edit_lock_ = true
 shape = SubResource("ConcavePolygonShape3D_qn7g3")
 
 [node name="mesh" type="MeshInstance3D" parent="floor"]
-material_override = ExtResource("2_ktmdo")
+material_override = ExtResource("2_5u8o8")
 mesh = SubResource("PlaneMesh_2w0di")
 skeleton = NodePath("../..")
 metadata/_edit_lock_ = true
@@ -94,10 +91,8 @@ transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 4, 
 mesh = SubResource("PlaneMesh_gq7xe")
 metadata/_edit_lock_ = true
 
-[node name="player" parent="." instance=ExtResource("2_m6kxa")]
+[node name="player" parent="." instance=ExtResource("4_oo632")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.7225)
-
-[node name="ground_floor" parent="." instance=ExtResource("5_tq7p6")]
 
 [node name="canvas" type="CanvasLayer" parent="."]
 
@@ -110,7 +105,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = SubResource("Theme_yj6o4")
+theme = ExtResource("6_1ca3e")
 
 [node name="crosshair" type="Panel" parent="canvas/container"]
 custom_minimum_size = Vector2(4, 4)
@@ -144,7 +139,7 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
-script = ExtResource("5_vrfpf")
+script = ExtResource("6_fj0gl")
 
 [node name="items" type="HBoxContainer" parent="canvas/container/inventory"]
 custom_minimum_size = Vector2(0, 48)
@@ -211,7 +206,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 2
 alignment = 1
-script = ExtResource("6_nwrmn")
+script = ExtResource("7_yhv2t")
 
 [node name="container" type="GridContainer" parent="canvas/container/customer_status"]
 layout_mode = 2
@@ -234,5 +229,14 @@ layout_mode = 2
 text = "20/20"
 horizontal_alignment = 2
 
-[node name="props" type="Node3D" parent="."]
-metadata/_edit_lock_ = true
+[node name="generation" type="Node" parent="."]
+script = ExtResource("8_xtxd2")
+
+[node name="rat" parent="." instance=ExtResource("9_jggjy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.538268, -1.19209e-07, -1.47544)
+
+[node name="ground_floor" parent="." instance=ExtResource("5_boy7x")]
+
+[node name="level" type="Node3D" parent="."]
+
+[node name="customers" type="Node3D" parent="level"]

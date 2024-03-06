@@ -45,6 +45,16 @@ func get_all_angles() -> Array[Vector4]:
 	if back: list.append(Vector4(0, 0, 4, PI))
 	return list
 
+
+func get_all_global_angles() -> Array[Vector4]:
+	var list : Array[Vector4] = []
+	if left: list.append(Vector4(-4, 0, 0, PI / 2))
+	if right: list.append(Vector4(4, 0, 0, -PI / 2))
+	if front: list.append(Vector4(0, 0, -4, 0))
+	if back: list.append(Vector4(0, 0, 4, PI))
+	return list
+
+
 func _add_debug_shape(pos : Vector4) -> void:
 	var mesh = MeshInstance3D.new()
 	var _plane := BoxMesh.new()
