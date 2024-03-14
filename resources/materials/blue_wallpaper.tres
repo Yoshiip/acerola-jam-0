@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://h7b0ekvpjm14"]
+
+[ext_resource type="Texture2D" uid="uid://dwvv0bjo2my32" path="res://hotel/texture/wallpapers/blue_wallpaper.png" id="1_mbmqg"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_mbmqg")
+uv1_triplanar = true
+texture_filter = 0

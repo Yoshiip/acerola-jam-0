@@ -15,4 +15,4 @@ func display(summary : Array[Array]) -> void:
 		_value.text = str("+" if line[1] > 0 else "", line[1])
 		$container.add_child(_value)
 		_total += line[1]
-	$total.text = str(_total, "/20")
+	$total.text = str(_total)

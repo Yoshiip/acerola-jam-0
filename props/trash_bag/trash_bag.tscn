@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4lyqhhc8mnb4"]
+
+[ext_resource type="Script" path="res://props/trash_bag/trash_bag.gd" id="1_n456j"]
+[ext_resource type="PackedScene" uid="uid://bxp80byvnlfl" path="res://props/trash_bag/trash bag black.glb" id="2_fnwid"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t4o2a"]
+size = Vector3(0.5, 0.72, 0.5)
+
+[node name="trash_bag" type="RigidBody3D"]
+script = ExtResource("1_n456j")
+id = "trash_bag"
+stealable = false
+
+[node name="mesh" parent="." instance=ExtResource("2_fnwid")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_t4o2a")

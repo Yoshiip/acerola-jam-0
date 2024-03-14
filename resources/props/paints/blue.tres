@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bhln8huv0kawk"]
+
+[ext_resource type="Texture2D" uid="uid://coiquwvi33r4p" path="res://ui/items/blue_paint.png" id="1_pjjcq"]
+[ext_resource type="PackedScene" uid="uid://ba6a1ox7y3vc" path="res://props/paint/blue_paint.tscn" id="2_ovbs4"]
+[ext_resource type="Script" path="res://props/item.gd" id="3_ewgfy"]
+
+[resource]
+script = ExtResource("3_ewgfy")
+id = "blue_paint"
+name = "Blue Paint"
+description = "Use it on a piece of furniture to paint it blue.
+If you want to paint a room with it, place the pot in the middle of the room and interact with it. Paint will be splattered all over the walls!"
+icon = ExtResource("1_pjjcq")
+prop = ExtResource("2_ovbs4")
+price = 15

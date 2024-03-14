@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://0hr1tsawgkhp"]
+
+[ext_resource type="Script" path="res://props/carpet/carpet.gd" id="1_1u408"]
+[ext_resource type="Texture2D" uid="uid://lrtqgtvg3el6" path="res://hotel/texture/carpets/room_carpet.png" id="2_iip0n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_he3wj"]
+size = Vector3(2.5, 0.01, 2.5)
+
+[node name="carpet" type="StaticBody3D"]
+script = ExtResource("1_1u408")
+color = null
+id = "carpet"
+to_save = Array[String](["color"])
+fixed = null
+ground_decoration = true
+place_only_on_floor = null
+lock_rot_x = null
+hold_size = 0.25
+
+[node name="sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.005, 0)
+pixel_size = 0.02
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_iip0n")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_he3wj")

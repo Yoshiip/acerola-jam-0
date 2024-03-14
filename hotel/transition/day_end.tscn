@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvqiengdoxpok"]
+[gd_scene load_steps=15 format=3 uid="uid://cvqiengdoxpok"]
 
 [ext_resource type="Script" path="res://hotel/transition/day_end.gd" id="1_n3rkm"]
-[ext_resource type="Theme" uid="uid://cljv3o1v8gskw" path="res://hotel/theme.tres" id="2_ljj0b"]
+[ext_resource type="Theme" uid="uid://cljv3o1v8gskw" path="res://resources/theme.tres" id="2_ljj0b"]
 [ext_resource type="Texture2D" uid="uid://bn3xuxh4v804g" path="res://ui/end_pattern.png" id="2_wrspq"]
-[ext_resource type="Texture2D" uid="uid://ctu2rlnbxrc01" path="res://ui/star_outline.png" id="3_alov2"]
-[ext_resource type="Texture2D" uid="uid://m8lg20gijl6m" path="res://ui/star.png" id="4_77e1h"]
+[ext_resource type="PackedScene" uid="uid://c8slmuoqkrv3x" path="res://ui/hotel_stars_hbox.tscn" id="4_7342f"]
+[ext_resource type="Texture2D" uid="uid://byy14k4axscxw" path="res://ui/paper.png" id="6_xdlx0"]
+[ext_resource type="AudioStream" uid="uid://cn0u3j1jdkg6k" path="res://audios/musics/day_end_music.mp3" id="7_omr20"]
+[ext_resource type="AudioStream" uid="uid://bbgq46wiy858y" path="res://audios/effects/paper.mp3" id="8_x1bmy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1c8xc"]
 content_margin_left = 4.0
@@ -28,16 +30,94 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fe7w2"]
+texture = ExtResource("6_xdlx0")
+texture_margin_left = 16.0
+texture_margin_top = 2.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_vertical = 1
+
+[sub_resource type="Animation" id="Animation_cblih"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dbmdh"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rrngi"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pw7gi"]
+_data = {
+"RESET": SubResource("Animation_cblih"),
+"fade_in": SubResource("Animation_dbmdh"),
+"fade_out": SubResource("Animation_rrngi")
+}
+
 [node name="day_end" type="CanvasLayer"]
 script = ExtResource("1_n3rkm")
 
-[node name="container" type="TextureRect" parent="."]
+[node name="container" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_ljj0b")
+
+[node name="background" type="TextureRect" parent="container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1024.0
+offset_top = -1024.0
+offset_right = 1024.0
+offset_bottom = 1024.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(1024, 1024)
 texture = ExtResource("2_wrspq")
 expand_mode = 1
 stretch_mode = 1
@@ -49,13 +129,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -41.0
-offset_top = -81.0
-offset_right = 41.0
-offset_bottom = 81.0
+offset_left = -92.0
+offset_top = -91.0
+offset_right = 92.0
+offset_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 
 [node name="title" type="RichTextLabel" parent="container/vbox"]
 clip_contents = false
@@ -66,40 +145,61 @@ fit_content = true
 
 [node name="grid" type="GridContainer" parent="container/vbox"]
 layout_mode = 2
-columns = 2
+columns = 3
 
-[node name="clients_label" type="Label" parent="container/vbox/grid"]
+[node name="customers_label" type="Label" parent="container/vbox/grid"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.572549, 0.494118, 0.415686, 1)
 theme_override_font_sizes/font_size = 12
-text = "Number of clients"
+text = "Customers"
+horizontal_alignment = 2
 
-[node name="clients_value" type="Label" parent="container/vbox/grid"]
+[node name="customers_value" type="Label" parent="container/vbox/grid"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.937255, 0.847059, 0.631373, 1)
+theme_override_colors/font_outline_color = Color(0.164706, 0.113725, 0.0509804, 1)
 theme_override_font_sizes/font_size = 12
 text = "0"
-horizontal_alignment = 2
+
+[node name="customers_total" type="Label" parent="container/vbox/grid"]
+layout_mode = 2
+text = "(total: 100)"
 
 [node name="happiness_label" type="Label" parent="container/vbox/grid"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.572549, 0.494118, 0.415686, 1)
 theme_override_font_sizes/font_size = 12
-text = "Total happiness"
+text = "Happiness"
+horizontal_alignment = 2
 
 [node name="happiness_value" type="Label" parent="container/vbox/grid"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.937255, 0.847059, 0.631373, 1)
+theme_override_colors/font_outline_color = Color(0.164706, 0.113725, 0.0509804, 1)
 theme_override_font_sizes/font_size = 12
-text = "0"
-horizontal_alignment = 2
+text = "+0"
+
+[node name="happiness_total" type="Label" parent="container/vbox/grid"]
+layout_mode = 2
+text = "(total: 124)"
 
 [node name="money_label" type="Label" parent="container/vbox/grid"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.572549, 0.494118, 0.415686, 1)
 theme_override_font_sizes/font_size = 12
 text = "Money"
+horizontal_alignment = 2
 
 [node name="money_value" type="Label" parent="container/vbox/grid"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.937255, 0.847059, 0.631373, 1)
+theme_override_colors/font_outline_color = Color(0.164706, 0.113725, 0.0509804, 1)
 theme_override_font_sizes/font_size = 12
-text = "0c"
-horizontal_alignment = 2
+text = "+0c"
+
+[node name="money_total" type="Label" parent="container/vbox/grid"]
+layout_mode = 2
+text = "(total: 100c)"
 
 [node name="level" type="Panel" parent="container/vbox"]
 custom_minimum_size = Vector2(184, 64)
@@ -119,44 +219,8 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="hbox" type="HBoxContainer" parent="container/vbox/level/vbox"]
+[node name="hbox" parent="container/vbox/level/vbox" instance=ExtResource("4_7342f")]
 layout_mode = 2
-alignment = 1
-
-[node name="0" type="TextureProgressBar" parent="container/vbox/level/vbox/hbox"]
-layout_mode = 2
-allow_lesser = true
-texture_under = ExtResource("3_alov2")
-texture_progress = ExtResource("4_77e1h")
-tint_under = Color(0.211765, 0.211765, 0.211765, 1)
-
-[node name="1" type="TextureProgressBar" parent="container/vbox/level/vbox/hbox"]
-layout_mode = 2
-allow_lesser = true
-texture_under = ExtResource("3_alov2")
-texture_progress = ExtResource("4_77e1h")
-tint_under = Color(0.211765, 0.211765, 0.211765, 1)
-
-[node name="2" type="TextureProgressBar" parent="container/vbox/level/vbox/hbox"]
-layout_mode = 2
-allow_lesser = true
-texture_under = ExtResource("3_alov2")
-texture_progress = ExtResource("4_77e1h")
-tint_under = Color(0.211765, 0.211765, 0.211765, 1)
-
-[node name="3" type="TextureProgressBar" parent="container/vbox/level/vbox/hbox"]
-layout_mode = 2
-allow_lesser = true
-texture_under = ExtResource("3_alov2")
-texture_progress = ExtResource("4_77e1h")
-tint_under = Color(0.211765, 0.211765, 0.211765, 1)
-
-[node name="4" type="TextureProgressBar" parent="container/vbox/level/vbox/hbox"]
-layout_mode = 2
-allow_lesser = true
-texture_under = ExtResource("3_alov2")
-texture_progress = ExtResource("4_77e1h")
-tint_under = Color(0.211765, 0.211765, 0.211765, 1)
 
 [node name="progress" type="Label" parent="container/vbox/level/vbox"]
 layout_mode = 2
@@ -167,6 +231,69 @@ horizontal_alignment = 1
 [node name="continue" type="Button" parent="container/vbox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Next day"
+text = "Continue"
+
+[node name="messages" type="VBoxContainer" parent="container"]
+visible = false
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -53.0
+offset_right = 123.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="label" type="Label" parent="container/messages"]
+layout_mode = 2
+text = "Messages"
+
+[node name="message" type="RichTextLabel" parent="container/messages"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_fe7w2")
+bbcode_enabled = true
+fit_content = true
+
+[node name="message_continue" type="Button" parent="container/messages"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "OK!"
+
+[node name="transition" type="ColorRect" parent="container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="animation_player" type="AnimationPlayer" parent="container/transition"]
+libraries = {
+"": SubResource("AnimationLibrary_pw7gi")
+}
+autoplay = "RESET"
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_omr20")
+autoplay = true
+bus = &"Music"
+
+[node name="paper" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_x1bmy")
+bus = &"Effects"
 
 [connection signal="pressed" from="container/vbox/continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="container/messages/message_continue" to="." method="_on_message_continue_pressed"]

@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://h6h6smn3wsim"]
+
+[ext_resource type="Script" path="res://props/bell/bell.gd" id="1_qwhb3"]
+[ext_resource type="AudioStream" uid="uid://k1tq436xohlf" path="res://audios/effects/bell.mp3" id="2_nrt4i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5lhmg"]
+albedo_color = Color(0.964706, 0.701961, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_aw5la"]
+top_radius = 0.1
+bottom_radius = 0.125
+height = 0.15
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ol525"]
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.02
+radial_segments = 8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xgm1o"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="bell" type="AnimatableBody3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_qwhb3")
+id = "bell"
+fixed = true
+retrieve_data = true
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+material_override = SubResource("StandardMaterial3D_5lhmg")
+mesh = SubResource("CylinderMesh_aw5la")
+skeleton = NodePath("../..")
+
+[node name="mesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+material_override = SubResource("StandardMaterial3D_5lhmg")
+mesh = SubResource("CylinderMesh_ol525")
+skeleton = NodePath("../..")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_xgm1o")
+
+[node name="remaining" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+billboard = 1
+shaded = true
+alpha_cut = 1
+text = "Remaining: 5"
+
+[node name="ring" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_nrt4i")
+pitch_scale = 1.2
+max_polyphony = 4

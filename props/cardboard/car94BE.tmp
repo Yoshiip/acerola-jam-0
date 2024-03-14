@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2p31r7f3yahp"]
+
+[ext_resource type="Script" path="res://props/cardboard/cardboard.gd" id="1_d7bip"]
+[ext_resource type="Texture2D" uid="uid://criyvnhdd3kea" path="res://props/cardboard/cardboard.png" id="2_mnkyd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_keni2"]
+size = Vector3(0.8, 0.6, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1v80w"]
+albedo_texture = ExtResource("2_mnkyd")
+
+[node name="Cardboard" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_d7bip")
+id = "cardboard"
+to_save = Array[String](["inside"])
+lock_rot_x = true
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("BoxShape3D_keni2")
+
+[node name="mesh" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+material_override = SubResource("StandardMaterial3D_1v80w")
+size = Vector3(0.8, 0.6, 0.6)
+
+[node name="name" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.371, 0.584, 0.301)
+font_size = 24
+outline_size = 8
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 140.0
+
+[node name="icon" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.22, 0.301)
+pixel_size = 0.008
+shaded = true
+texture_filter = 0

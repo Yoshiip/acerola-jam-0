@@ -29,7 +29,26 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"lift_walls": {
+"use_external/enabled": true,
+"use_external/path": "res://resources/materials/lift_walls.tres"
+},
+"wallpaper": {
+"use_external/enabled": true,
+"use_external/path": "res://resources/materials/red_wallpaper.tres"
+},
+"white": {
+"use_external/enabled": true,
+"use_external/path": "res://resources/materials/wall_line.tres"
+},
+"wood": {
+"use_external/enabled": true,
+"use_external/path": "res://resources/materials/wall_wood.tres"
+}
+}
+}
 gltf/naming_version=1
 gltf/embedded_image_handling=1
 blender/nodes/visible=0

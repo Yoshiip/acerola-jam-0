@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://chc4hb16p853x"]
+
+[ext_resource type="PackedScene" uid="uid://7y4iupm8pxgn" path="res://props/gifts/gift.tscn" id="1_1ipbn"]
+[ext_resource type="PackedScene" uid="uid://dprxu4dehu8de" path="res://props/gifts/banana/Banana.glb" id="2_dshg6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iuppd"]
+size = Vector3(0.16, 0.2, 0.64)
+
+[node name="banana" instance=ExtResource("1_1ipbn")]
+monkey = 2
+donut = 1
+general = 1
+id = "banana"
+
+[node name="mesh" parent="." index="0" instance=ExtResource("2_dshg6")]
+
+[node name="collision" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_iuppd")

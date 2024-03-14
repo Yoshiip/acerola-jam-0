@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cvrpvccmwsojn"]
+
+[ext_resource type="Texture2D" uid="uid://bayotw0dnf53e" path="res://ui/items/trash.png" id="1_prfmt"]
+[ext_resource type="Script" path="res://props/item.gd" id="1_y41i8"]
+[ext_resource type="PackedScene" uid="uid://c4lyqhhc8mnb4" path="res://props/trash_bag/trash_bag.tscn" id="2_lq7vh"]
+
+[resource]
+script = ExtResource("1_y41i8")
+id = "trash_bag"
+name = "Trash Bag"
+description = "A garbage bag lying around...
+
+This is garbage. Leaving garbage in your hotel will lower your reputation, and could even bankrupt you. Put it in the trash."
+icon = ExtResource("1_prfmt")
+prop = ExtResource("2_lq7vh")
+price = 0

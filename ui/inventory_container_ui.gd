@@ -1,8 +1,9 @@
 extends VBoxContainer
 
-@onready var player: Player = $"../../../player"
+@onready var player: Player = %player
 
 const NOTHING_TEXTURE := preload("res://ui/items/empty.png")
+const ITEM_FRAME = preload("res://ui/items/item_frame.tscn")
 
 func _ready() -> void:
 	player.inventory_changed.connect(_inventory_changed)
@@ -32,13 +33,14 @@ func _inventory_changed() -> void:
 		child.queue_free()
 	for i in range(player.inventory.size()):
 		var item = player.inventory[i]
-		var _texture_rect := TextureRect.new()
+		var _item_frame := ITEM_FRAME.instantiate()
 		if item == null:
-			_texture_rect.texture = NOTHING_TEXTURE
+			_item_frame.get_node("image").texture = NOTHING_TEXTURE
 		else:
-			_texture_rect.texture = item.icon
-		_texture_rect.modulate.a = 1.0 if i == player.current_item else 0.5
-		$items.add_child(_texture_rect)
+			_item_frame.get_node("image").texture = item.icon
+		_item_frame.get_node("label").text = str(i + 1)
+		_item_frame.modulate.a = 1.0 if i == player.current_item else 0.5
+		$items.add_child(_item_frame)
 	if player.inventory[player.current_item]:
 		$holding_label.text = player.inventory[player.current_item].name
 	else:

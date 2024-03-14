@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://docilpwmkjkc4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrmqq"]
+bg_color = Color(0.572549, 0.494118, 0.415686, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.235294, 0.623529, 0.611765, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.247059)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+anti_aliasing_size = 2.0
+
+[node name="item_button" type="Panel"]
+custom_minimum_size = Vector2(112, 56)
+offset_right = 112.0
+offset_bottom = 56.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mrmqq")
+
+[node name="icon" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.705882)
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -52.0
+offset_right = 56.0
+offset_bottom = -4.0
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -29.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "Buy"
+
+[node name="name" type="Label" parent="."]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 62.0
+offset_bottom = 25.0
+text = "Magic Whistle"
+
+[node name="price" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -25.0
+offset_right = 44.0
+offset_bottom = -8.0
+grow_vertical = 0
+text = "10c"
+vertical_alignment = 1

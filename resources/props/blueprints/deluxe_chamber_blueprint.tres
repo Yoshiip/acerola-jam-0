@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bh43edr16r6j1"]
+
+[ext_resource type="Texture2D" uid="uid://b1kuosghkc6wo" path="res://ui/items/blueprint.png" id="1_oi2gp"]
+[ext_resource type="Script" path="res://props/item.gd" id="1_s67v2"]
+[ext_resource type="PackedScene" uid="uid://cw3sd2hgguoor" path="res://props/blueprint/deluxe_chamber/deluxe_chamber_blueprint.tscn" id="2_gt8x7"]
+
+[resource]
+script = ExtResource("1_s67v2")
+id = "deluxe_chamber_blueprint"
+name = "Deluxe Chamber Blueprint"
+description = "A luxury room. The customer will be delighted to stay there!"
+icon = ExtResource("1_oi2gp")
+prop = ExtResource("2_gt8x7")
+price = 350

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cfp52qfn6svtc"]
+
+[ext_resource type="Texture2D" uid="uid://b1kuosghkc6wo" path="res://ui/items/blueprint.png" id="1_faa77"]
+[ext_resource type="Script" path="res://props/item.gd" id="1_p32hr"]
+[ext_resource type="PackedScene" uid="uid://dyp8vw40gnxr7" path="res://props/blueprint/chamber/chamber_blueprint.tscn" id="2_uecia"]
+
+[resource]
+script = ExtResource("1_p32hr")
+id = "chamber_blueprint"
+name = "Chamber Blueprint"
+description = "One room to accommodate one customer."
+icon = ExtResource("1_faa77")
+prop = ExtResource("2_uecia")
+price = 100

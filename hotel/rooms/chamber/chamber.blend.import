@@ -33,19 +33,23 @@ _subresources={
 "materials": {
 "floor": {
 "use_external/enabled": true,
-"use_external/path": "res://hotel/materials/wood_floor.tres"
+"use_external/path": "res://resources/materials/wood_floor.tres"
+},
+"red_wallpaper": {
+"use_external/enabled": true,
+"use_external/path": "res://resources/materials/red_wallpaper.tres"
 },
 "wallpaper": {
 "use_external/enabled": true,
-"use_external/path": "res://hotel/materials/red_wallpaper.tres"
+"use_external/path": "res://resources/materials/red_wallpaper.tres"
 },
 "white": {
 "use_external/enabled": true,
-"use_external/path": "res://hotel/materials/wall_line.tres"
+"use_external/path": "res://resources/materials/wall_line.tres"
 },
 "wood": {
 "use_external/enabled": true,
-"use_external/path": "res://hotel/materials/dark_wood.tres"
+"use_external/path": "res://resources/materials/wall_wood.tres"
 }
 }
 }

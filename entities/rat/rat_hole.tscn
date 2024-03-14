@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://deq3aslrfxn36"]
+
+[ext_resource type="Script" path="res://entities/rat/rat_hole.gd" id="1_0ghvh"]
+[ext_resource type="Texture2D" uid="uid://ngn867vp3dos" path="res://entities/rat/rat_hole.png" id="1_wq6yj"]
+[ext_resource type="AudioStream" uid="uid://bsqobkvncv823" path="res://audios/effects/rat_release.mp3" id="3_geetj"]
+
+[node name="rat_hole" type="Node3D" groups=["Hole"]]
+script = ExtResource("1_0ghvh")
+
+[node name="sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.425, -0.101)
+pixel_size = 0.0065
+shaded = true
+texture_filter = 0
+texture = ExtResource("1_wq6yj")
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 45.0
+
+[node name="rat_release" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_geetj")
+bus = &"Effects"
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

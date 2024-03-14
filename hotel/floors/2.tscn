@@ -1,0 +1,139 @@
+[gd_scene load_steps=4 format=3 uid="uid://biw3j36l1qvjx"]
+
+[ext_resource type="PackedScene" uid="uid://b57chr0wyldvf" path="res://hotel/walls/marker/wall_marker.tscn" id="1_w4311"]
+[ext_resource type="PackedScene" uid="uid://chmx4rsr2h642" path="res://hotel/floors/base_floor.tscn" id="1_yqswm"]
+[ext_resource type="Texture2D" uid="uid://caflbme55r7oq" path="res://hotel/texture/carpet.png" id="3_xis5m"]
+
+[node name="2" instance=ExtResource("1_yqswm")]
+
+[node name="markers" type="Node3D" parent="." index="2"]
+
+[node name="3" parent="markers" index="0" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+left = true
+front = true
+
+[node name="8" parent="markers" index="1" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -4)
+right = true
+
+[node name="9" parent="markers" index="2" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 4)
+right = true
+
+[node name="10WALL" parent="markers" index="3" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 12)
+force_wall = true
+right = true
+
+[node name="11WALL" parent="markers" index="4" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 16)
+force_wall = true
+front = true
+
+[node name="12" parent="markers" index="5" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 16)
+front = true
+
+[node name="13" parent="markers" index="6" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 16)
+front = true
+
+[node name="14WALL" parent="markers" index="7" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 16)
+force_wall = true
+front = true
+
+[node name="15WALL" parent="markers" index="8" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 12)
+force_wall = true
+left = true
+
+[node name="16" parent="markers" index="9" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 4)
+left = true
+
+[node name="17" parent="markers" index="10" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -4)
+left = true
+
+[node name="18WALL" parent="markers" index="11" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -12)
+force_wall = true
+left = true
+
+[node name="19WALL" parent="markers" index="12" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -16)
+force_wall = true
+back = true
+
+[node name="20" parent="markers" index="13" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -16)
+back = true
+
+[node name="21" parent="markers" index="14" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -16)
+back = true
+
+[node name="22WALL" parent="markers" index="15" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -16)
+force_wall = true
+back = true
+
+[node name="23WALL" parent="markers" index="16" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -12)
+force_wall = true
+right = true
+
+[node name="5" parent="markers" index="17" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+right = true
+front = true
+
+[node name="6" parent="markers" index="18" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+right = true
+back = true
+
+[node name="7" parent="markers" index="19" instance=ExtResource("1_w4311")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+left = true
+back = true
+
+[node name="carpets" type="Node3D" parent="." index="3"]
+
+[node name="carpet2" type="Sprite3D" parent="carpets" index="0"]
+transform = Transform3D(-1, 8.74228e-08, -3.82138e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, -10, 0.01, 0)
+pixel_size = 0.016
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_xis5m")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1408)
+
+[node name="carpet3" type="Sprite3D" parent="carpets" index="1"]
+transform = Transform3D(-1, 8.74228e-08, -3.82138e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 10, 0.01, 0)
+pixel_size = 0.016
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_xis5m")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1408)
+
+[node name="carpet4" type="Sprite3D" parent="carpets" index="2"]
+transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73207e-15, 0, 0.01, -10)
+pixel_size = 0.016
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_xis5m")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1120)
+
+[node name="carpet5" type="Sprite3D" parent="carpets" index="3"]
+transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73207e-15, 0, 0.01, 10)
+pixel_size = 0.016
+shaded = true
+texture_filter = 0
+texture = ExtResource("3_xis5m")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1120)

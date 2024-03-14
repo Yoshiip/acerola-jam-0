@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://brdke7ardrln1"]
+
+[ext_resource type="Texture2D" uid="uid://dysil51l7qwtc" path="res://ui/items/cardboard.png" id="1_kb8uw"]
+[ext_resource type="PackedScene" uid="uid://d2p31r7f3yahp" path="res://props/cardboard/cardboard.tscn" id="2_6pbyd"]
+[ext_resource type="Script" path="res://props/item.gd" id="3_hxtof"]
+
+[resource]
+script = ExtResource("3_hxtof")
+id = "cardboard"
+name = "Cardboard"
+description = "Contains [OBJECT]
+
+This item has been packaged.
+To unpack it, interact with it."
+icon = ExtResource("1_kb8uw")
+prop = ExtResource("2_6pbyd")
+price = 0

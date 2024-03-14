@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cbger6pgcjdu3"]
+
+[ext_resource type="Texture2D" uid="uid://bkdx75b5pdiyq" path="res://ui/items/no_icon.png" id="1_glhhg"]
+[ext_resource type="Script" path="res://props/item.gd" id="1_migfc"]
+[ext_resource type="PackedScene" uid="uid://dfjjhrql0r13u" path="res://props/vase/vase.tscn" id="2_xclsm"]
+
+[resource]
+script = ExtResource("1_migfc")
+id = "vase"
+name = "Vase"
+description = ""
+icon = ExtResource("1_glhhg")
+prop = ExtResource("2_xclsm")
+price = 25

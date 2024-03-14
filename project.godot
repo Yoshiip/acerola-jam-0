@@ -10,14 +10,21 @@ config_version=5
 
 [application]
 
-config/name="Acerola Jam 0"
-run/main_scene="res://hotel/hotel.tscn"
+config/name="L'Hôtel Bizarre"
+config/description="TOURNEUR Aymeri"
+config/version="1.0.0"
+run/main_scene="res://menu/menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.121569, 0.141176, 0.0392157, 1)
+boot_splash/image="res://ui/logo_x2.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+config/icon="res://ui/logo_x2.png"
 
 [autoload]
 
-PlayerData="*res://PlayerData.gd"
+PlayerData="*res://singletons/PlayerData.gd"
+GameManager="*res://singletons/GameManager.gd"
 
 [display]
 
@@ -27,10 +34,22 @@ window/size/window_width_override=960
 window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+mouse_cursor/custom_image="res://ui/cursor.png"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_owl/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://entities/": "purple",
+"res://hotel/": "red",
+"res://props/": "green",
+"res://resources/": "yellow",
+"res://ui/": "blue"
+}
 
 [input]
 
@@ -99,17 +118,42 @@ fullscreen={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194342,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
+pack={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":71,"key_label":0,"unicode":103,"echo":false,"script":null)
+]
+}
+pause={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":80,"key_label":0,"unicode":112,"echo":false,"script":null)
+]
+}
+escape={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
-3d_physics/layer_1="Main"
+3d_physics/layer_1="Default"
 3d_physics/layer_2="Props"
+3d_physics/layer_3="Chamber Area"
+3d_physics/layer_4="Navigation Bypass"
+3d_physics/layer_5="Customers"
+3d_physics/layer_6="Walls"
+3d_physics/layer_7="Rat"
+3d_physics/layer_8="Trap"
+
+[navigation]
+
+3d/default_cell_size=0.2
+3d/default_cell_height=0.1
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-gl_compatibility/driver="opengl3_angle"
-gl_compatibility/driver.windows="opengl3_angle"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/decals/filter=0
 textures/light_projectors/filter=0

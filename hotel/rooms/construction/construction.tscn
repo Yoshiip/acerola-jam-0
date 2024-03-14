@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3vr6w0er7on2"]
+
+[ext_resource type="Script" path="res://props/architect_plinth/architect_plinth.gd" id="1_sye28"]
+[ext_resource type="PackedScene" uid="uid://pn4eupseipil" path="res://hotel/rooms/construction/construction.blend" id="3_w1qb7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kf1v2"]
+size = Vector3(0.8, 1.2, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fepmy"]
+size = Vector3(3.1, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8k88t"]
+size = Vector3(1.8, 4, 1)
+
+[node name="free_room" type="StaticBody3D"]
+
+[node name="architect_plinth" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+script = ExtResource("1_sye28")
+id = "architect_plinth"
+fixed = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="architect_plinth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+size = Vector3(0.8, 1.2, 0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="architect_plinth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("BoxShape3D_kf1v2")
+
+[node name="construction" parent="." instance=ExtResource("3_w1qb7")]
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.45, 2, 3.5)
+shape = SubResource("BoxShape3D_fepmy")
+
+[node name="collision2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.45, 2, 3.5)
+shape = SubResource("BoxShape3D_fepmy")
+
+[node name="collision3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78814e-07, 2, 2.6)
+shape = SubResource("BoxShape3D_8k88t")

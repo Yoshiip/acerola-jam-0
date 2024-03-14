@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://begj2t6otraiw"]
+
+[ext_resource type="Script" path="res://props/item.gd" id="1_cox35"]
+[ext_resource type="PackedScene" uid="uid://xa12ytv661k3" path="res://props/water/water.tscn" id="1_ntfxy"]
+
+[resource]
+script = ExtResource("1_cox35")
+id = "water"
+name = "Water"
+description = "To be cleaned with a broom.
+
+This is garbage. Leaving garbage in your hotel will lower your reputation, and could even bankrupt you. Put it in the trash."
+prop = ExtResource("1_ntfxy")
+price = 0

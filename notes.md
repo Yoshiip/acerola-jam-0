@@ -43,3 +43,20 @@ Note du client (sur 20)
 Malus :
 - pas de lit (-5)
 + déménagement ()
+
+
+Récompenses niveau:
+	1 : +1 étage
+	2 : 
+
+
+# conseils
+Les rats ne peuvent pas atteindre les objets en hauteur.
+Les rats auxquelles vous faites peur seront terrorisés et ne sortiront plu avant après-demain!
+Pour assigner une chambre à un client, vous pouvez soit utiliser le sifflet sur la porte ou amener le client à l'intérieur.
+
+
+# messages
+Nos ouvriers vous ont construit un nouvel étage rien que pour vous et vos clients!
+Pour vous récompenser, nous vous avons offert une meilleur sacoche!
+Un colis avec plein de cadeaux pour vos clients arrivera dans la journée.

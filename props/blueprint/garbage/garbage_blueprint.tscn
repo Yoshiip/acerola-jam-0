@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://d20lcq7a0gdw8"]
+
+[ext_resource type="Script" path="res://props/rigid_prop.gd" id="1_g4im3"]
+[ext_resource type="PackedScene" uid="uid://dkjgj0sthk8if" path="res://props/blueprint/blueprint.blend" id="2_shhy0"]
+[ext_resource type="Texture2D" uid="uid://do34vks8k6g2n" path="res://props/blueprint/garbage/garbage.png" id="3_sxby7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g5uh8"]
+albedo_texture = ExtResource("3_sxby7")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vc622"]
+size = Vector3(0.56, 0.05, 0.32)
+
+[node name="chamber_blueprint" type="RigidBody3D"]
+script = ExtResource("1_g4im3")
+id = "garbage_blueprint"
+stealable = false
+
+[node name="blueprint" parent="." instance=ExtResource("2_shhy0")]
+
+[node name="Plane" parent="blueprint" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_g5uh8")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00473022, 0, 0)
+shape = SubResource("BoxShape3D_vc622")
+
+[editable path="blueprint"]

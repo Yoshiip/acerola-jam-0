@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://osk8eisi8714"]
+
+[ext_resource type="Script" path="res://props/trap/trap.gd" id="1_wqqy5"]
+[ext_resource type="PackedScene" uid="uid://cu2pj5uxs65vu" path="res://props/trap/trap.blend" id="2_mcf2v"]
+[ext_resource type="AudioStream" uid="uid://dtx3bdwx63uec" path="res://audios/effects/trap_trigger.mp3" id="3_duqko"]
+[ext_resource type="AudioStream" uid="uid://bslc4gjlwk6ke" path="res://audios/effects/trap_place.mp3" id="4_t5kfw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xlayl"]
+size = Vector3(0.32, 0.06, 0.48)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ogtdo"]
+size = Vector3(0.32, 0.16, 0.48)
+
+[sub_resource type="Animation" id="Animation_8tg1c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("trap/metal:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o4wog"]
+resource_name = "trigger"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("trap/metal:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 3, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(2.96706, 0, 0), Vector3(2.96706, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hr61a"]
+_data = {
+"RESET": SubResource("Animation_8tg1c"),
+"trigger": SubResource("Animation_o4wog")
+}
+
+[node name="trap" type="AnimatableBody3D"]
+script = ExtResource("1_wqqy5")
+id = "trap"
+to_save = Array[String](["durability"])
+
+[node name="trap" parent="." instance=ExtResource("2_mcf2v")]
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+shape = SubResource("BoxShape3D_xlayl")
+
+[node name="trigger_area" type="Area3D" parent="."]
+collision_layer = 128
+collision_mask = 81
+
+[node name="collision" type="CollisionShape3D" parent="trigger_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+shape = SubResource("BoxShape3D_ogtdo")
+
+[node name="trap_trigger" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_duqko")
+volume_db = -30.0
+bus = &"Effects"
+
+[node name="trap_place" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_t5kfw")
+volume_db = -16.0
+bus = &"Effects"
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hr61a")
+}
+
+[connection signal="body_entered" from="trigger_area" to="." method="_on_trigger_area_body_entered"]
+
+[editable path="trap"]

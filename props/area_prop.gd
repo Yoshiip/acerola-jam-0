@@ -11,3 +11,6 @@ extends Area3D
 
 func interact(player : Player) -> void:
 	pass
+
+func get_floor() -> int:
+	return floor(global_position.y / 8.0)

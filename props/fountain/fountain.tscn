@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b84k0amqqgnwa"]
+
+[ext_resource type="Script" path="res://props/static_prop.gd" id="1_eyxo5"]
+[ext_resource type="PackedScene" uid="uid://dm75ph04yquuo" path="res://props/fountain/Fountain.glb" id="2_wkhmx"]
+[ext_resource type="Material" uid="uid://d3m4bw2u5e50o" path="res://props/water/water_material.tres" id="3_a022y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lxbli"]
+size = Vector3(4, 1.5, 4)
+
+[node name="fountain" type="AnimatableBody3D"]
+script = ExtResource("1_eyxo5")
+id = "fountain"
+fixed = true
+ground_decoration = true
+retrieve_data = true
+
+[node name="mesh" parent="." instance=ExtResource("2_wkhmx")]
+
+[node name="SM_Fountain_SM_Fountain1" parent="mesh" index="0"]
+surface_material_override/1 = ExtResource("3_a022y")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_lxbli")
+
+[editable path="mesh"]

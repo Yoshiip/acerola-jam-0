@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyp8vw40gnxr7"]
+
+[ext_resource type="Script" path="res://props/rigid_prop.gd" id="1_fyfk4"]
+[ext_resource type="PackedScene" uid="uid://dkjgj0sthk8if" path="res://props/blueprint/blueprint.blend" id="2_s6sbn"]
+[ext_resource type="Texture2D" uid="uid://cdyhx8iuwq2l" path="res://props/blueprint/chamber/chamber.png" id="3_yeo5w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4f5k"]
+albedo_texture = ExtResource("3_yeo5w")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vc622"]
+size = Vector3(0.56, 0.05, 0.32)
+
+[node name="chamber_blueprint" type="RigidBody3D"]
+script = ExtResource("1_fyfk4")
+id = "chamber_blueprint"
+stealable = false
+
+[node name="blueprint" parent="." instance=ExtResource("2_s6sbn")]
+
+[node name="Plane" parent="blueprint" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_g4f5k")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00473022, 0, 0)
+shape = SubResource("BoxShape3D_vc622")
+
+[editable path="blueprint"]

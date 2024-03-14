@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfjjhrql0r13u"]
+
+[ext_resource type="Script" path="res://props/static_prop.gd" id="1_0l6y5"]
+[ext_resource type="PackedScene" uid="uid://b638t0qe0nqqg" path="res://props/vase/vase.blend" id="2_4gf2m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vnj2r"]
+size = Vector3(0.6, 0.9, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oh2mu"]
+cull_mode = 2
+albedo_color = Color(0.956863, 0.835294, 0.92549, 1)
+
+[node name="vase" type="AnimatableBody3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_0l6y5")
+id = "vase"
+decoration_value = 1
+retrieve_data = true
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("BoxShape3D_vnj2r")
+
+[node name="vase" parent="." instance=ExtResource("2_4gf2m")]
+
+[node name="Cube" parent="vase" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_oh2mu")
+
+[editable path="vase"]

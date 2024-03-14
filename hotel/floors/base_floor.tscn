@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://chmx4rsr2h642"]
+
+[ext_resource type="Material" uid="uid://b84nhftty1aor" path="res://resources/materials/wood_floor.tres" id="1_k7jc2"]
+[ext_resource type="Script" path="res://hotel/floors/base_floor.gd" id="1_vc5jl"]
+[ext_resource type="Texture2D" uid="uid://c5berrj8j5mlh" path="res://hotel/texture/roof.png" id="2_rrdud"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_5hief"]
+geometry_parsed_geometry_type = 1
+geometry_collision_mask = 4294967287
+cell_size = 0.2
+cell_height = 0.1
+agent_radius = 0.4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_leqoo"]
+size = Vector2(64, 64)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o531s"]
+size = Vector3(64, 1, 64)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ohd7u"]
+data = PackedVector3Array(32, 0, 32, -32, 0, 32, 32, 0, -32, -32, 0, 32, -32, 0, -32, 32, 0, -32)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bsq88"]
+size = Vector2(64, 64)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bjaeh"]
+albedo_texture = ExtResource("2_rrdud")
+uv1_triplanar = true
+
+[node name="base_floor" type="NavigationRegion3D"]
+navigation_mesh = SubResource("NavigationMesh_5hief")
+script = ExtResource("1_vc5jl")
+
+[node name="floor" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="mesh" type="MeshInstance3D" parent="floor"]
+material_override = ExtResource("1_k7jc2")
+mesh = SubResource("PlaneMesh_leqoo")
+skeleton = NodePath("../../..")
+
+[node name="collision" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_o531s")
+
+[node name="roof" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 4, 0)
+visible = false
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="collision" type="CollisionShape3D" parent="roof"]
+shape = SubResource("ConcavePolygonShape3D_ohd7u")
+
+[node name="mesh" type="MeshInstance3D" parent="roof"]
+mesh = SubResource("PlaneMesh_bsq88")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_bjaeh")

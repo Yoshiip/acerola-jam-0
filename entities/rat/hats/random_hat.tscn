@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://sw28nums3ofm"]
+
+[ext_resource type="Script" path="res://entities/rat/hats/random_hat.gd" id="1_hah5s"]
+[ext_resource type="PackedScene" uid="uid://chj2dgm77pcmg" path="res://entities/rat/hats/Propeller hat.glb" id="2_8u3a2"]
+
+[node name="RandomHat" type="Node3D"]
+script = ExtResource("1_hah5s")
+
+[node name="Propeller hat" parent="." instance=ExtResource("2_8u3a2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)

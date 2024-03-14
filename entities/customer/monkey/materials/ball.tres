@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://d22bba8uqwmnc"]
+
+[ext_resource type="Texture2D" uid="uid://dmcpx7yjcbwgc" path="res://entities/customer/monkey/ball_star.png" id="1_jo5qi"]
+
+[resource]
+resource_name = "white"
+albedo_texture = ExtResource("1_jo5qi")
+uv1_scale = Vector3(16, 16, 16)

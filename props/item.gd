@@ -8,3 +8,4 @@ extends Resource
 @export var icon : CompressedTexture2D
 @export var prop : PackedScene
 var data := {}
+@export var price := 0

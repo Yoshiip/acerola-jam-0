@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw3sd2hgguoor"]
+
+[ext_resource type="PackedScene" uid="uid://dyp8vw40gnxr7" path="res://props/blueprint/chamber/chamber_blueprint.tscn" id="1_fmh65"]
+
+[node name="deluxe_chamber_blueprint" instance=ExtResource("1_fmh65")]
+id = "deluxe_chamber_chamber_blueprint"
+
+[editable path="blueprint"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://7y4iupm8pxgn"]
+
+[ext_resource type="Script" path="res://props/gifts/gift.gd" id="1_yca63"]
+
+[node name="gift" type="RigidBody3D"]
+script = ExtResource("1_yca63")
+id = "gift"
+lock_rot_x = true

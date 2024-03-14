@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b84nhftty1aor"]
+
+[ext_resource type="Texture2D" uid="uid://cpimvva1myphf" path="res://hotel/texture/wood.png" id="1_s2uxe"]
+
+[resource]
+albedo_texture = ExtResource("1_s2uxe")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0

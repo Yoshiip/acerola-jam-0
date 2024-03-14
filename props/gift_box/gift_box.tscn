@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bywp0lldhxsll"]
+
+[ext_resource type="Script" path="res://props/static_prop.gd" id="1_5m5b8"]
+[ext_resource type="Texture2D" uid="uid://xrptx1sr773e" path="res://palette.png" id="2_uo8sl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66y8m"]
+albedo_texture = ExtResource("2_uo8sl")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5nj75"]
+size = Vector3(0.5, 0.6, 0.5)
+
+[node name="gift" type="AnimatableBody3D"]
+script = ExtResource("1_5m5b8")
+id = "gift"
+place_only_on_floor = false
+
+[node name="mesh" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+material_override = SubResource("StandardMaterial3D_66y8m")
+size = Vector3(0.5, 0.6, 0.5)
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("BoxShape3D_5nj75")

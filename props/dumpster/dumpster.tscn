@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://1663fw5nb76d"]
+
+[ext_resource type="Script" path="res://props/dumpster/dumpster.gd" id="1_ahp6o"]
+[ext_resource type="PackedScene" uid="uid://dlelvkxjxg5rw" path="res://hotel/rooms/trash_room/Dumpster.glb" id="2_sjtc5"]
+[ext_resource type="AudioStream" uid="uid://bvasq6rhjkjst" path="res://audios/effects/dumpster.mp3" id="3_xv2s4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xasv8"]
+size = Vector3(2.2, 1.8, 1.4)
+
+[node name="dumpster" type="AnimatableBody3D"]
+script = ExtResource("1_ahp6o")
+id = "dumpster"
+fixed = true
+
+[node name="mesh" parent="." instance=ExtResource("2_sjtc5")]
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0130826, 0.90432, -5.96046e-08)
+shape = SubResource("BoxShape3D_xasv8")
+
+[node name="debris" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+stream = ExtResource("3_xv2s4")
+volume_db = -8.0
+max_polyphony = 4
+bus = &"Effects"

@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://kv83832xl1jn"]
+
+[ext_resource type="PackedScene" uid="uid://dy70sc4ndwp6y" path="res://hotel/rooms/delivery/delivery_room.blend" id="1_0bnvt"]
+[ext_resource type="Texture2D" uid="uid://btsv6h7tiyy5j" path="res://hotel/texture/danger_pattern.png" id="2_ab5yi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyb2w"]
+albedo_texture = ExtResource("2_ab5yi")
+uv1_scale = Vector3(64, 4, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7beet"]
+size = Vector3(3.1, 4, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_00p12"]
+size = Vector3(6, 4, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g1mdv"]
+size = Vector3(4, 0.2, 4)
+
+[node name="DeliveryRoom" type="StaticBody3D"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="delivery_room" parent="." instance=ExtResource("1_0bnvt")]
+
+[node name="delivery_platform" parent="delivery_room" index="6"]
+surface_material_override/1 = SubResource("StandardMaterial3D_xyb2w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.45, 2, 3.5)
+shape = SubResource("BoxShape3D_7beet")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.45, 2, 3.5)
+shape = SubResource("BoxShape3D_7beet")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3.5)
+shape = SubResource("BoxShape3D_00p12")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.5, 2, 1.19209e-07)
+shape = SubResource("BoxShape3D_00p12")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5, 2, 1.19209e-07)
+shape = SubResource("BoxShape3D_00p12")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_g1mdv")
+
+[editable path="delivery_room"]

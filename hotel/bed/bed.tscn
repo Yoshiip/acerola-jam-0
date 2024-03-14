@@ -9,7 +9,9 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6fv3b"]
 size = Vector3(1.6, 0.4, 2)
 
-[node name="bed" type="StaticBody3D" groups=["Interaction"]]
+[node name="bed" type="AnimatableBody3D" groups=["Interaction"]]
+collision_layer = 15
+collision_mask = 15
 script = ExtResource("1_v0igl")
 id = "bed"
 to_save = Array[String](["color"])

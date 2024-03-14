@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bul5m0djfrica"]
+
+[ext_resource type="PackedScene" uid="uid://7y4iupm8pxgn" path="res://props/gifts/gift.tscn" id="1_73rbo"]
+[ext_resource type="PackedScene" uid="uid://3nv2wkbyuigy" path="res://props/gifts/bouncing_ball/beach ball.glb" id="2_csuy1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7wqjy"]
+bounce = 0.9
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q54p0"]
+radius = 0.25
+
+[node name="bouncing_ball" instance=ExtResource("1_73rbo")]
+physics_material_override = SubResource("PhysicsMaterial_7wqjy")
+ghost = 1
+monkey = 2
+general = 1
+id = "bouncing_ball"
+
+[node name="collision" type="CollisionShape3D" parent="." index="0"]
+shape = SubResource("SphereShape3D_q54p0")
+
+[node name="mesh" parent="." index="1" instance=ExtResource("2_csuy1")]

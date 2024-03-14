@@ -1,8 +1,5 @@
 extends Node
 
-const MAX_CHAMBERS := 4
-const MAX_LIFTS := 1
-
 var current_floor : Node3D
 var floor_number : int
 
@@ -10,12 +7,17 @@ const WALL = preload("res://hotel/walls/wall.tscn")
 
 const ROOMS := {
 	"chamber": preload("res://hotel/rooms/chamber/chamber.tscn"),
-	"lift": preload("res://hotel/rooms/lift/lift.tscn")
+	"lift": preload("res://hotel/rooms/lift/lift.tscn"),
+	"construction": preload("res://hotel/rooms/construction/construction.tscn"),
+	"deluxe_chamber": preload("res://hotel/rooms/deluxe_chamber/deluxe_chamber.tscn"),
+	"storage": preload("res://hotel/rooms/storage/storage_room.tscn"),
+	"garbage": preload("res://hotel/rooms/trash_room/trash_room.tscn"),
 }
 
 func generate_room(markers : Node3D) -> Array[Dictionary]:
-	var chambers_placed := 0
-	var lifts_placed := 0
+	var chambers_left := randi_range(3, 4)
+	var construction_left := 3 if chambers_left == 3 else 2
+	var lifts_left := 1
 	var _markers := markers.get_children()
 	_markers.shuffle()
 	var _rooms : Array[Dictionary] = []
@@ -24,67 +26,74 @@ func generate_room(markers : Node3D) -> Array[Dictionary]:
 		var _angles : Array[Vector4] = _marker.get_all_angles()
 		var _data := {
 			"angles": _angles,
-			"transform": _marker.global_transform
+			"transform": _marker.global_transform,
+			"rat": _marker.rat_hole_expands,
 		}
 		if !_marker.force_wall:
-			if chambers_placed < MAX_CHAMBERS:
-				_data["room_id"] = "chamber"
-				chambers_placed += 1
-			elif lifts_placed < MAX_LIFTS:
+			if lifts_left > 0:
 				_data["room_id"] = "lift"
-				lifts_placed += 1
+				lifts_left -= 1
+			elif chambers_left > 0:
+				_data["room_id"] = "chamber"
+				chambers_left -= 1
+			elif construction_left > 0:
+				_data["room_id"] = "construction"
+				construction_left -= 1
 			_data["room_angle"] = randi() % _angles.size()
 		_rooms.append(_data)
 	return _rooms
 
-func _place_room(
+func place_room(
 	room_data : Dictionary,
-	offset = Vector3.ZERO,
-	generate = true,
 	room_name : String = room_data.room_id
-) -> void:
+) -> Node3D:
 	var _room : Node3D = ROOMS[room_data.room_id].instantiate()
-	_room.generate = generate
 	_room.name = room_name
 	
 	var _marker_transform : Transform3D = room_data.transform
-	_room.position = _marker_transform.origin + offset
-	_room.rotation.y = room_data.angles[0].w + _marker_transform.basis.get_euler().y
-	current_floor.add_child(_room) 
+	_room.position = _marker_transform.origin * Vector3(1, 0, 1)
+	_room.rotation.y = room_data.angles[0].w + _marker_transform.basis.get_euler().y + PI
+	if room_data.get("floor") != null:
+		var _floor := get_parent().get_node(str(room_data.floor))
+		_floor.add_child(_room)
+		if room_data.get("rebake_floor"):
+			await get_tree().physics_frame
+			_floor.generate_navigation()
+	else:
+		current_floor.add_child(_room)
+	return _room
 
-@onready var root := get_tree().current_scene
+@onready var hotel : Hotel = get_tree().current_scene
 
-func place_rooms(markers : Node3D, generate = true) -> void:
-	current_floor = root.current_floor
-	floor_number = root.floor_number
+func place_rooms(floor : NavigationRegion3D, floor_number : int) -> void:
+	current_floor = floor
+	self.floor_number = floor_number
 	var _chambers_placed := 0
-	for room in generate_room(markers):
+	for room in generate_room(floor.get_node("markers")):
 		var _angles : Array[Vector4] = room.angles
 		
 		if room.has("room_id"):
 			match room.room_id:
 				"chamber":
 					_chambers_placed += 1
-					var _angle := _angles[0]
-					_place_room(
-						room,
-						Vector3(_angle.x, _angle.y, _angle.z).normalized() * 2.0,
-						generate,
-						str(floor_number, "0", _chambers_placed)
-					)
+					place_room(room, str(floor_number + 1, "0", _chambers_placed))
+				"lift":
+					var _lift := await place_room(room)
+					_lift.screen_floor = floor_number
 				_:
-					_place_room(room, Vector3.ZERO, generate)
+					place_room(room)
 					
 			for i in range(1, _angles.size()):
-				_place_wall(room.transform, _angles[i])
+				_place_wall(room.transform, _angles[i], room.rat)
 		else:
 			for angle in _angles:
-				_place_wall(room.transform, angle)
+				_place_wall(room.transform, angle, room.rat)
+	current_floor.generate_navigation()
 
-		#_chamber.position = 
 
-func _place_wall(marker_transform : Transform3D, angle : Vector4) -> void:
+func _place_wall(marker_transform : Transform3D, angle : Vector4, rat : float) -> void:
 	var _wall := WALL.instantiate()
-	_wall.position = Vector3(angle.x, angle.y, angle.z) + marker_transform.origin
+	_wall.position = Vector3(angle.x, angle.y, angle.z) + marker_transform.origin - current_floor.global_position
 	_wall.rotation.y = angle.w + marker_transform.basis.get_euler().y
+	_wall.set_meta("rat_hole_expands", rat)
 	current_floor.add_child(_wall)

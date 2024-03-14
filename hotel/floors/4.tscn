@@ -1,0 +1,133 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3bxl26jw5r01"]
+
+[ext_resource type="PackedScene" uid="uid://chmx4rsr2h642" path="res://hotel/floors/base_floor.tscn" id="1_7xct2"]
+[ext_resource type="Texture2D" uid="uid://caflbme55r7oq" path="res://hotel/texture/carpet.png" id="2_7fmwa"]
+[ext_resource type="PackedScene" uid="uid://b57chr0wyldvf" path="res://hotel/walls/marker/wall_marker.tscn" id="3_hvu7o"]
+
+[node name="4" instance=ExtResource("1_7xct2")]
+
+[node name="carpets" type="Node3D" parent="." index="2"]
+
+[node name="carpet3" type="Sprite3D" parent="carpets" index="0"]
+transform = Transform3D(-1, 8.74228e-08, -3.82138e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 0.01, 0)
+pixel_size = 0.016
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_7fmwa")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1408)
+
+[node name="carpet4" type="Sprite3D" parent="carpets" index="1"]
+transform = Transform3D(-1, 8.74228e-08, -3.82138e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, -14.5, 0.01, 0)
+pixel_size = 0.016
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_7fmwa")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1408)
+
+[node name="carpet6" type="Sprite3D" parent="carpets" index="2"]
+transform = Transform3D(-1, 8.74228e-08, -3.82138e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 14.6, 0.01, 0)
+pixel_size = 0.016
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_7fmwa")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1408)
+
+[node name="carpet5" type="Sprite3D" parent="carpets" index="3"]
+transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73207e-15, 0, 0.01, 0)
+pixel_size = 0.016
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_7fmwa")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1920)
+
+[node name="markers" type="Node3D" parent="." index="3"]
+
+[node name="0" parent="markers" index="0" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 8)
+left = true
+right = true
+front = true
+
+[node name="1" parent="markers" index="1" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 8)
+left = true
+right = true
+front = true
+
+[node name="2" parent="markers" index="2" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -8)
+left = true
+right = true
+back = true
+
+[node name="3" parent="markers" index="3" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -8)
+left = true
+right = true
+back = true
+
+[node name="4" parent="markers" index="4" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 0)
+left = true
+
+[node name="5" parent="markers" index="5" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -8)
+left = true
+rat_hole_expands = 2.0
+
+[node name="6" parent="markers" index="6" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 8)
+left = true
+
+[node name="7" parent="markers" index="7" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 0)
+right = true
+
+[node name="8" parent="markers" index="8" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -8)
+right = true
+rat_hole_expands = 2.0
+
+[node name="9" parent="markers" index="9" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 8)
+right = true
+
+[node name="7 WALL" parent="markers" index="10" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
+force_wall = true
+front = true
+rat_hole_expands = 2.0
+
+[node name="7 WALL2 WALL" parent="markers" index="11" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 16)
+force_wall = true
+front = true
+rat_hole_expands = 2.0
+
+[node name="7 WALL2 WALL2 WALL" parent="markers" index="12" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 16)
+force_wall = true
+front = true
+rat_hole_expands = 2.0
+
+[node name="7 WALL2 WALL2 WALL2 WALL" parent="markers" index="13" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -16)
+force_wall = true
+back = true
+rat_hole_expands = 2.0
+
+[node name="7 WALL2 WALL2 WALL2 WALL2 WALL" parent="markers" index="14" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+force_wall = true
+back = true
+rat_hole_expands = 2.0
+
+[node name="7 WALL2 WALL2 WALL2 WALL2 WALL2 WALL" parent="markers" index="15" instance=ExtResource("3_hvu7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -16)
+force_wall = true
+back = true
+rat_hole_expands = 2.0

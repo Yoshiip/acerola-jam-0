@@ -1,0 +1,128 @@
+[gd_scene load_steps=14 format=3 uid="uid://0crh4bkcmeaw"]
+
+[ext_resource type="Script" path="res://hotel/rooms/deluxe_chamber/deluxe_chamber.gd" id="1_ewavm"]
+[ext_resource type="PackedScene" uid="uid://d1p4o5bdtwxmg" path="res://hotel/rooms/chamber/chamber.blend" id="2_dw0hr"]
+[ext_resource type="PackedScene" uid="uid://navwyu1hgd6i" path="res://hotel/door/door.tscn" id="3_c3rdx"]
+[ext_resource type="Texture2D" uid="uid://b3rtao2o5w7q" path="res://hotel/walls/air_vent.png" id="4_xrcsi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63rje"]
+albedo_color = Color(1, 0.729412, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7to1r"]
+albedo_color = Color(1, 0.729412, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j80sp"]
+size = Vector3(5.4, 4, 3.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0qu65"]
+size = Vector3(6, 4, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t5cqu"]
+size = Vector3(4, 4, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c8obp"]
+size = Vector3(4.9, 4, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s78rc"]
+size = Vector3(1.9, 4, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6iouc"]
+size = Vector3(1.2, 2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jgns2"]
+albedo_color = Color(1, 0.729412, 0, 1)
+
+[node name="deluxe_chamber" type="StaticBody3D" groups=["Wall"]]
+collision_layer = 35
+collision_mask = 35
+script = ExtResource("1_ewavm")
+
+[node name="chamber" parent="." instance=ExtResource("2_dw0hr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="door" parent="." instance=ExtResource("3_c3rdx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 4)
+golden = true
+
+[node name="Cylinder" parent="door/door/Door" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_63rje")
+
+[node name="Handle" parent="door/door/Door" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7to1r")
+
+[node name="customer_position" type="Marker3D" parent="."]
+transform = Transform3D(-0.388706, 0, 0.921362, 0, 1, 0, -0.921362, 0, -0.388706, -1.37102, 0, 0.76417)
+
+[node name="bed_marker" type="Marker3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.6, 0, 2)
+
+[node name="room_area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+collision_layer = 20
+collision_mask = 20
+
+[node name="collision" type="CollisionShape3D" parent="room_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_j80sp")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_0qu65")
+
+[node name="collision2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 2, 1.9)
+shape = SubResource("BoxShape3D_t5cqu")
+
+[node name="collision3" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 2, 2)
+shape = SubResource("BoxShape3D_t5cqu")
+
+[node name="collision4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 1.55433, 2, 4)
+shape = SubResource("BoxShape3D_c8obp")
+
+[node name="collision5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, -3.05867, 2, 4)
+shape = SubResource("BoxShape3D_s78rc")
+
+[node name="collision6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, -1.50867, 3, 4)
+shape = SubResource("BoxShape3D_6iouc")
+
+[node name="carpet_position" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+
+[node name="vent" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 1.6, 3, 0.005)
+pixel_size = 0.015
+shaded = true
+double_sided = false
+texture_filter = 0
+texture = ExtResource("4_xrcsi")
+
+[node name="gold" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 4)
+size = Vector3(0.4, 4, 0.4)
+material = SubResource("StandardMaterial3D_jgns2")
+
+[node name="gold2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 4)
+size = Vector3(0.4, 4, 0.4)
+material = SubResource("StandardMaterial3D_jgns2")
+
+[node name="gold3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 0)
+size = Vector3(0.4, 4, 0.4)
+material = SubResource("StandardMaterial3D_jgns2")
+
+[node name="gold4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
+size = Vector3(0.4, 4, 0.4)
+material = SubResource("StandardMaterial3D_jgns2")
+
+[connection signal="body_entered" from="room_area" to="." method="_on_room_area_body_entered"]
+[connection signal="body_exited" from="room_area" to="." method="_on_room_area_body_exited"]
+
+[editable path="chamber"]
+[editable path="door"]
+[editable path="door/door"]

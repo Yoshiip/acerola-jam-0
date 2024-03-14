@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfpqtq3y62i2p"]
+
+[ext_resource type="PackedScene" uid="uid://7y4iupm8pxgn" path="res://props/gifts/gift.tscn" id="1_cdf6w"]
+[ext_resource type="PackedScene" uid="uid://c0ieuor3aik3j" path="res://props/gifts/star/star.glb" id="2_u16qe"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iuppd"]
+size = Vector3(0.32, 0.36, 0.15)
+
+[node name="star" instance=ExtResource("1_cdf6w")]
+ghost = 2
+general = 1
+id = "star"
+
+[node name="collision" type="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175, 0)
+shape = SubResource("BoxShape3D_iuppd")
+
+[node name="mesh" parent="." index="1" instance=ExtResource("2_u16qe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqt4u56ftr81e"]
+[gd_scene load_steps=6 format=3 uid="uid://dqt4u56ftr81e"]
 
 [ext_resource type="Script" path="res://props/magic_whistle/magic_whistle.gd" id="1_4qcgo"]
 [ext_resource type="PackedScene" uid="uid://lpoc8cly720l" path="res://props/whistle/whistle.blend" id="2_1pl7b"]
 [ext_resource type="Material" uid="uid://bg4hyovxtc4vx" path="res://props/magic_whistle/magic_whistle.tres" id="3_dt6ii"]
+[ext_resource type="AudioStream" uid="uid://x7ef0nwnxd7g" path="res://audios/effects/magic_whistle.mp3" id="4_dtkwp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2v5se"]
 size = Vector3(0.2, 0.2, 0.4)
@@ -13,6 +14,7 @@ collision_mask = 2
 script = ExtResource("1_4qcgo")
 retrieve_data = true
 id = "magic_whistle"
+stealable = false
 
 [node name="collision" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_2v5se")
@@ -21,5 +23,11 @@ shape = SubResource("BoxShape3D_2v5se")
 
 [node name="whistle" parent="whistle2" index="0"]
 surface_material_override/0 = ExtResource("3_dt6ii")
+
+[node name="audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_dtkwp")
+volume_db = -12.0
+max_polyphony = 4
+bus = &"Effects"
 
 [editable path="whistle2"]
