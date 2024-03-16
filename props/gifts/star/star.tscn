@@ -7,7 +7,9 @@
 size = Vector3(0.32, 0.36, 0.15)
 
 [node name="star" instance=ExtResource("1_cdf6w")]
-ghost = 2
+ghost = 3
+monkey = 2
+donut = 2
 general = 1
 id = "star"
 

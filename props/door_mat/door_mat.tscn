@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1voe021cpwr3"]
+
+[ext_resource type="Script" path="res://props/static_prop.gd" id="1_gp7fc"]
+[ext_resource type="Texture2D" uid="uid://dncta48eu2u7c" path="res://ui/bizarre.png" id="2_e87x7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qawf8"]
+size = Vector3(1.1, 0.125, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66dub"]
+albedo_color = Color(0.541176, 0.360784, 0.0980392, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o4t1x"]
+albedo_color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[node name="door_mat" type="AnimatableBody3D"]
+collision_layer = 7
+collision_mask = 3
+script = ExtResource("1_gp7fc")
+id = "door_mat"
+decoration_value = 1
+ground_decoration = true
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.012, 0)
+shape = SubResource("BoxShape3D_qawf8")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(1, 0.1, 0.6)
+material = SubResource("StandardMaterial3D_66dub")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025, 0)
+size = Vector3(1.1, 0.1, 0.7)
+material = SubResource("StandardMaterial3D_o4t1x")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.051, 0)
+modulate = Color(0, 0, 0, 0.498039)
+pixel_size = 0.007
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_e87x7")

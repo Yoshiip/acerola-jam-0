@@ -6,9 +6,12 @@
 
 [resource]
 script = ExtResource("1_p32hr")
+type = 2
 id = "chamber_blueprint"
 name = "Chamber Blueprint"
 description = "One room to accommodate one customer."
 icon = ExtResource("1_faa77")
 prop = ExtResource("2_uecia")
-price = 100
+price = 150
+decorative_value = 0
+paintable = false

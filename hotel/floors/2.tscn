@@ -25,11 +25,13 @@ right = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 12)
 force_wall = true
 right = true
+rat_hole_expands = 0.0
 
 [node name="11WALL" parent="markers" index="4" instance=ExtResource("1_w4311")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 16)
 force_wall = true
 front = true
+rat_hole_expands = 0.0
 
 [node name="12" parent="markers" index="5" instance=ExtResource("1_w4311")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 16)
@@ -43,11 +45,13 @@ front = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 16)
 force_wall = true
 front = true
+rat_hole_expands = 0.0
 
 [node name="15WALL" parent="markers" index="8" instance=ExtResource("1_w4311")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 12)
 force_wall = true
 left = true
+rat_hole_expands = 0.0
 
 [node name="16" parent="markers" index="9" instance=ExtResource("1_w4311")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 4)
@@ -61,11 +65,13 @@ left = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -12)
 force_wall = true
 left = true
+rat_hole_expands = 0.0
 
 [node name="19WALL" parent="markers" index="12" instance=ExtResource("1_w4311")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -16)
 force_wall = true
 back = true
+rat_hole_expands = 0.0
 
 [node name="20" parent="markers" index="13" instance=ExtResource("1_w4311")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -16)
@@ -79,11 +85,13 @@ back = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -16)
 force_wall = true
 back = true
+rat_hole_expands = 0.0
 
 [node name="23WALL" parent="markers" index="16" instance=ExtResource("1_w4311")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -12)
 force_wall = true
 right = true
+rat_hole_expands = 0.0
 
 [node name="5" parent="markers" index="17" instance=ExtResource("1_w4311")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cxagi1n7gqgl0"]
+[gd_scene load_steps=14 format=3 uid="uid://cxagi1n7gqgl0"]
 
 [ext_resource type="PackedScene" uid="uid://chmx4rsr2h642" path="res://hotel/floors/base_floor.tscn" id="1_fjqrw"]
 [ext_resource type="Texture2D" uid="uid://caflbme55r7oq" path="res://hotel/texture/carpet.png" id="2_bfpck"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://b57chr0wyldvf" path="res://hotel/walls/marker/wall_marker.tscn" id="5_1cmlm"]
 [ext_resource type="Script" path="res://hotel/walls/marker/room_marker.gd" id="6_8ltwk"]
 [ext_resource type="PackedScene" uid="uid://h6h6smn3wsim" path="res://props/bell/bell.tscn" id="8_ingih"]
-[ext_resource type="PackedScene" uid="uid://dw6wfa50cpi4s" path="res://props/whistle/whistle.tscn" id="9_bfaxy"]
 [ext_resource type="PackedScene" uid="uid://cmpcjg3yyj0qk" path="res://hotel/rooms/trash_room/trash_room.tscn" id="13_7uixa"]
 [ext_resource type="PackedScene" uid="uid://6r2blghi54wf" path="res://hotel/rooms/player_room/player_room.tscn" id="14_3fmbw"]
 [ext_resource type="PackedScene" uid="uid://to44nv2fo2df" path="res://props/table/table.blend" id="14_l0jpp"]
@@ -142,7 +141,6 @@ gizmo_extents = 4.0
 script = ExtResource("6_8ltwk")
 force_wall = true
 left = true
-right = true
 back = true
 
 [node name="9" type="Marker3D" parent="markers" index="11"]
@@ -194,7 +192,7 @@ rat_hole_expands = 0.0
 [node name="bell" parent="." index="8" instance=ExtResource("8_ingih")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.239267, 0.95, -4)
 
-[node name="whistle" parent="." index="9" instance=ExtResource("9_bfaxy")]
+[node name="whistle" type="Marker3D" parent="." index="9"]
 transform = Transform3D(0.851754, 0, 0.523941, 0, 1, 0, -0.523941, 0, 0.851754, 0.328787, 1.06072, -4.02477)
 
 [node name="TrashRoom" parent="." index="10" instance=ExtResource("13_7uixa")]

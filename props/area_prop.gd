@@ -8,6 +8,8 @@ extends Area3D
 # overriden by item data
 @export var display_name : String
 @export var description : String
+var item_reference : Item
+
 
 func interact(player : Player) -> void:
 	pass

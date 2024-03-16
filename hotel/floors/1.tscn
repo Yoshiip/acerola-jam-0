@@ -71,4 +71,4 @@ shaded = true
 texture_filter = 0
 texture = ExtResource("2_8dsel")
 region_enabled = true
-region_rect = Rect2(0, 0, 128, 1664)
+region_rect = Rect2(0, 0, 128, 2432)

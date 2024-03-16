@@ -16,6 +16,7 @@ extends AnimatableBody3D
 # overriden by item data
 var display_name : String
 var description : String
+var item_reference : Item
 var flipped := false
 
 @export var retrieve_data := false
@@ -24,11 +25,12 @@ var holded : bool:
 	set(value):
 		holded = value
 		rotation.x = 0
-		sync_to_physics = false
+		sync_to_physics = true
 		$collision.disabled = holded
+		sync_to_physics = false
 		flipped = false
 		if !holded && place_only_on_floor:
-			position.y = 0.0
+			position.y = get_floor() * 8.0
 
 func flip() -> void:
 	flipped = !flipped

@@ -4,6 +4,7 @@ class_name Hotel
 extends Node3D
 
 signal new_day_started
+signal rats_changed
 
 var floor_number := 1
 var max_floor := 1
@@ -16,16 +17,19 @@ const CUSTOMERS := {
 }
 
 
-@onready var CARDBOARD := preload("res://resources/props/cardboard.tres")
 
 const ITEMS := {
+	"cardboard": preload("res://resources/props/cardboard.tres"),
 	"whistle": preload("res://resources/props/whistle.tres"),
 	#"magic_whistle": preload("res://resources/props/magic_whistle.tres"),
-	"bed": preload("res://resources/props/bed.tres"),
 	"bell": preload("res://resources/props/bell.tres"),
 	"broom": preload("res://resources/props/broom.tres"),
-	"carpet": preload("res://resources/props/carpet.tres"),
 	"trap": preload("res://resources/props/trap.tres"),
+	
+	# DECORATIONS
+	"bed": preload("res://resources/props/bed.tres"),
+	"carpet": preload("res://resources/props/carpet.tres"),
+	"door_mat": preload("res://resources/props/door_mat.tres"),
 	"fountain": preload("res://resources/props/fountain.tres"),
 	"vase": preload("res://resources/props/vase.tres"),
 	
@@ -61,8 +65,10 @@ const ITEMS := {
 
 var transitioning := false
 
+var floors_color := ["red"]
+
 const FLOORS : Array[PackedScene] = [
-	preload("res://hotel/floors/0.tscn"),
+	#preload("res://hotel/floors/0.tscn"),
 	preload("res://hotel/floors/1.tscn"),
 	preload("res://hotel/floors/2.tscn"),
 	preload("res://hotel/floors/3.tscn"),
@@ -87,35 +93,30 @@ const RAT = preload("res://entities/rat/rat.tscn")
 func _ready() -> void:
 	randomize()
 	$generation.place_rooms($"0", 0)
-	add_floor(FLOORS[1])
+	add_floor(FLOORS[0])
+	#add_floor(FLOORS[1])
 	#add_floor(FLOORS[2])
 	#add_floor(FLOORS[3])
 	#add_floor(FLOORS[4])
-	#add_floor(FLOORS[5])
 	start_new_day()
+	create_prop(ITEMS.whistle, $"0/whistle".global_position, $"0/whistle".global_rotation)
 	#
-	#create_prop(ITEMS.banana)
+	#create_prop(ITEMS.trap)
 	#create_prop(ITEMS.bouncing_ball)
 	#create_prop(ITEMS.star)
 	#create_prop(ITEMS.trash_bag)
-	#for i in 50:
-		#add_rat_hole()
-		#create_prop(ITEMS.chamber_blueprint)
-	
-	#create_prop(ITEMS.trap)
-	
-	
-
-	
 	#for i in 100:
-		#create_prop(ITEMS.trash_bag, get_random_position(0))
+		#add_rat_hole()
+
 
 func add_random_floor() -> void:
 	add_floor(FLOORS.pick_random())
 
 func add_floor(floor_scene : PackedScene) -> void:
+	floors_color.append(["red", "green", "blue", "purple"].pick_random())
 	var _floor := floor_scene.instantiate()
 	_floor.name = str(max_floor)
+	_floor.floor_color = floors_color[max_floor]
 	_floor.position.y = hotel_floors.size() * 8.0
 	add_child(_floor)
 	$generation.place_rooms(_floor, hotel_floors.size())
@@ -137,8 +138,11 @@ func start_new_day() -> void:
 	for reward in PlayerData.rewards_to_apply:
 		match reward:
 			"bag":
-				player.inventory.append(null)
-				player.inventory_changed.emit()
+				if player.inventory.size() == 6:
+					PlayerData.money += randi_range(15, 20) * 10
+				else:
+					player.inventory.append(null)
+					player.inventory_changed.emit()
 			"customers":
 				customers_bonus += 1
 			"vip":
@@ -164,6 +168,7 @@ func start_new_day() -> void:
 		else:
 			customer.nights_left -= 1
 			if customer.nights_left <= 0:
+				customer.room_assigned.assigned_to = null
 				customer.room_assigned = null
 				customer.queue_free()
 
@@ -190,7 +195,7 @@ func get_item(id : String) -> Item:
 	if ITEMS.has(id):
 		return ITEMS.get(id).duplicate()
 	if id == "cardboard":
-		return CARDBOARD.duplicate()
+		return ITEMS.cardboard.duplicate()
 	return null
 
 func create_prop(from : Item, pos : Vector3 = Vector3(randf(), 2, randf()), rot : Vector3 = Vector3.ZERO) -> Node3D:
@@ -198,6 +203,7 @@ func create_prop(from : Item, pos : Vector3 = Vector3(randf(), 2, randf()), rot 
 	_prop.id = from.id
 	_prop.set("display_name", from.get("name"))
 	_prop.set("description", from.get("description"))
+	_prop.set("item_reference", from)
 	_prop.set("hotel", self)
 	for key in from.get("data"):
 		_prop.set(key, from.data[key])
@@ -257,6 +263,9 @@ func change_floor(new_floor : int, bodies : Array[Node3D]) -> void:
 		body.global_position = _new_pos
 		
 		body.rotation.y += _new_elevator_rot - _old_elevator_rot
+		
+	await get_tree().create_timer(2.0).timeout
+	$effects/bell.play()
 
 
 func spawn_customer() -> void:
@@ -290,11 +299,12 @@ func end_day() -> void:
 	if transitioning:
 		return
 	for rat in get_tree().get_nodes_in_group("Rat"):
-		var _hole := get_nearest_hole(rat)
-		if is_instance_valid(_hole):
-			_hole.rat_entered(rat)
-		else:
-			rat.queue_free()
+		if !rat.dead:
+			var _hole := get_nearest_hole(rat)
+			if is_instance_valid(_hole):
+				_hole.rat_entered(rat)
+			else:
+				rat.queue_free()
 	for customer in $customers.get_children():
 		customer.calculate_happiness()
 	transitioning = true
@@ -304,8 +314,11 @@ func end_day() -> void:
 
 func pack(prop : Node3D) -> bool:
 	if prop.get("id") != "cardboard":
-		var _cardboard := create_prop(CARDBOARD, prop.global_position, prop.global_rotation)
-		_cardboard.inside = prop.duplicate()
+		var _ref : Item = prop.item_reference
+		var _cardboard := create_prop(ITEMS.cardboard, prop.global_position, prop.global_rotation)
+		var _prop := prop.duplicate()
+		_prop.item_reference = _ref
+		_cardboard.inside = _prop
 		prop.queue_free()
 		return true
 	return false
@@ -381,12 +394,19 @@ func get_total_dirts_object_floor(floor : int) -> int:
 func get_total_garbage() -> int:
 	var _total := 0
 	for node in get_tree().get_nodes_in_group("Garbage"):
-		_total += 1
+		_total += 2
 	for hole in get_tree().get_nodes_in_group("Hole"):
 		_total += 3
 	return _total
 
 var music_played := false
+
+func get_rats_at_floor(floor : int) -> int:
+	var _total := 0
+	for rat in get_tree().get_nodes_in_group("Rat"):
+		if rat.get_floor() == floor:
+			_total += 1
+	return _total
 
 func update_music() -> void:
 	
@@ -413,7 +433,13 @@ func delivery(id : String) -> void:
 		pack(_prop)
 
 
+var _last_clean := 1.0
 func _on_update_timeout() -> void:
-	cleanliness = 1.0 - clamp((get_total_garbage() - $customers.get_child_count()) / 100.0, 0.0, 1.0)
-
-
+	cleanliness = 1.0 - clamp((get_total_garbage() - $customers.get_child_count()) / 75.0, 0.0, 1.0)
+	if _last_clean != cleanliness:
+		$canvas/container/cleanliness.value = cleanliness
+		$canvas/container/cleanliness.visible = true
+	else:
+		$canvas/container/cleanliness.visible = false
+	
+	_last_clean = cleanliness

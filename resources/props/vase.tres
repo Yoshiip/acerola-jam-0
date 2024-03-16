@@ -6,9 +6,12 @@
 
 [resource]
 script = ExtResource("1_migfc")
+type = 1
 id = "vase"
 name = "Vase"
-description = ""
+description = "For use in your customers rooms."
 icon = ExtResource("1_glhhg")
 prop = ExtResource("2_xclsm")
-price = 25
+price = 30
+decorative_value = 0
+paintable = false

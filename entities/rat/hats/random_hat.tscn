@@ -1,10 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://sw28nums3ofm"]
+[gd_scene load_steps=5 format=3 uid="uid://sw28nums3ofm"]
 
 [ext_resource type="Script" path="res://entities/rat/hats/random_hat.gd" id="1_hah5s"]
+[ext_resource type="PackedScene" uid="uid://pvgytdqw3pp1" path="res://entities/rat/hats/Santa Hat.glb" id="2_0ydcl"]
 [ext_resource type="PackedScene" uid="uid://chj2dgm77pcmg" path="res://entities/rat/hats/Propeller hat.glb" id="2_8u3a2"]
+[ext_resource type="PackedScene" uid="uid://ncucs28e70wf" path="res://entities/rat/hats/Sombrero.glb" id="4_05n0b"]
 
 [node name="RandomHat" type="Node3D"]
 script = ExtResource("1_hah5s")
 
-[node name="Propeller hat" parent="." instance=ExtResource("2_8u3a2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
+[node name="0" parent="." instance=ExtResource("2_0ydcl")]
+transform = Transform3D(-1, -7.16329e-09, -8.71288e-08, 0, 0.996637, -0.0819385, 8.74228e-08, -0.0819385, -0.996637, 0.058, 0.517, -0.176)
+
+[node name="1" parent="." instance=ExtResource("2_8u3a2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.2)
+
+[node name="2" parent="." instance=ExtResource("4_05n0b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.172246, 0.015)
+
+[editable path="2"]

@@ -15,6 +15,7 @@ extends RigidBody3D
 # overriden by item data
 var display_name : String
 var description : String
+var item_reference : Item
 
 func _ready() -> void:
 	add_to_group("Interaction")

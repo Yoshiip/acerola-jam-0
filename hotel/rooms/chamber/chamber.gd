@@ -16,11 +16,12 @@ var floor_number := 1
 @onready var hotel : Hotel = get_tree().current_scene
 
 var walls_color = "red"
-
+var floor_color := ""
 
 
 func _ready() -> void:
 	add_to_group("Chamber")
+	$chamber/walls.set("surface_material_override/3", load(str("res://resources/materials/", floor_color, "_wallpaper.tres")))
 	paint(["red", "green", "blue", "purple"].pick_random())
 	
 	$chamber/walls.set("surface_material_override/0", load(str("res://resources/materials/", walls_color, "_wallpaper.tres")))
@@ -63,6 +64,8 @@ func paint(color : String) -> void:
 func _on_room_area_body_entered(body: Node3D) -> void:
 	if hotel.transitioning:
 		return
+	if body.is_in_group("Player"):
+		_room_changed()
 	if body.is_in_group("Customer") && !is_instance_valid(assigned_to):
 		if !is_instance_valid(body.room_assigned):
 			assign_to(body)

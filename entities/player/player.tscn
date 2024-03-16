@@ -71,7 +71,7 @@ current = true
 
 [node name="raycast" type="RayCast3D" parent="head/camera"]
 target_position = Vector3(0, 0, -3)
-collision_mask = 75
+collision_mask = 331
 collide_with_areas = true
 
 [node name="holding_hint" type="AnimatedSprite3D" parent="."]

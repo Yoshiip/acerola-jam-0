@@ -6,9 +6,6 @@
 
 [node name="3" instance=ExtResource("1_t4sjt")]
 
-[node name="roof" parent="." index="1"]
-visible = false
-
 [node name="carpets" type="Node3D" parent="." index="2"]
 
 [node name="carpet3" type="Sprite3D" parent="carpets" index="0"]
@@ -82,7 +79,7 @@ left = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -14)
 force_wall = true
 left = true
-rat_hole_expands = 2.0
+rat_hole_expands = 0.0
 
 [node name="6 WALL2 WALL3 WALL" parent="markers" index="9" instance=ExtResource("2_5kqel")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -10)

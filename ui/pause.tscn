@@ -1,0 +1,282 @@
+[gd_scene load_steps=5 format=3 uid="uid://6uqmx88c0qy5"]
+
+[ext_resource type="Script" path="res://ui/pause.gd" id="1_3q3pu"]
+[ext_resource type="Theme" uid="uid://cljv3o1v8gskw" path="res://resources/theme.tres" id="1_rgqyb"]
+[ext_resource type="Texture2D" uid="uid://qhp1tetpp7m" path="res://ui/logo_small.png" id="3_rdjqq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34cdx"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 6
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+
+[node name="pause" type="ColorRect"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_rgqyb")
+color = Color(0, 0, 0, 0.709804)
+script = ExtResource("1_3q3pu")
+
+[node name="version" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -25.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+text = "Version 1.1"
+horizontal_alignment = 1
+
+[node name="hbox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -212.0
+offset_top = -140.0
+offset_right = 212.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="vbox" type="VBoxContainer" parent="hbox"]
+layout_mode = 2
+
+[node name="logo" type="TextureRect" parent="hbox/vbox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+texture = ExtResource("3_rdjqq")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="hbox/vbox"]
+layout_mode = 2
+text = "Game is paused"
+horizontal_alignment = 1
+
+[node name="vbox" type="VBoxContainer" parent="hbox/vbox"]
+layout_mode = 2
+
+[node name="continue" type="Button" parent="hbox/vbox/vbox"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Continue"
+
+[node name="restart_day" type="Button" parent="hbox/vbox/vbox"]
+visible = false
+layout_mode = 2
+text = "Restart Day"
+
+[node name="settings" type="GridContainer" parent="hbox/vbox"]
+layout_mode = 2
+columns = 2
+
+[node name="music_label" type="Label" parent="hbox/vbox/settings"]
+layout_mode = 2
+text = "Music"
+
+[node name="music_slider" type="HSlider" parent="hbox/vbox/settings"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="effects_label" type="Label" parent="hbox/vbox/settings"]
+layout_mode = 2
+text = "Effects"
+
+[node name="effects_slider" type="HSlider" parent="hbox/vbox/settings"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="fullscreen" type="CheckBox" parent="hbox/vbox"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="VSeparator" type="HSeparator" parent="hbox/vbox"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="hbox/vbox"]
+layout_mode = 2
+text = "Links"
+
+[node name="LinkButton" type="LinkButton" parent="hbox/vbox"]
+layout_mode = 2
+text = "GitHub"
+uri = "https://github.com/Yoshiip/acerola-jam-0"
+
+[node name="LinkButton2" type="LinkButton" parent="hbox/vbox"]
+layout_mode = 2
+text = "itch.io page"
+uri = "https://yoshiip.itch.io/hotel-bizarre"
+
+[node name="VSeparator" type="VSeparator" parent="hbox"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="hbox/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 16
+text = "How to play"
+
+[node name="GridContainer" type="VBoxContainer" parent="hbox/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="hbox/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="key" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_34cdx")
+text = "LMB"
+
+[node name="label" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Use holded item"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="hbox/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="key" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer8"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_34cdx")
+text = "RMB"
+
+[node name="label" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer8"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Scanner"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="hbox/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="key" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_34cdx")
+text = "E"
+
+[node name="label" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Use item"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="hbox/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="key" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_34cdx")
+text = "F"
+
+[node name="label" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Pickup/drop item"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="hbox/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="key" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_34cdx")
+text = "G"
+
+[node name="label" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Pack item"
+
+[node name="Label" type="Label" parent="hbox/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "On a customer"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="hbox/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="key" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer6"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_34cdx")
+text = "E"
+
+[node name="label" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer6"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Walks the customer"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="hbox/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="key" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_34cdx")
+text = "E (x2)"
+
+[node name="label" type="Label" parent="hbox/VBoxContainer/GridContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Moves him away"
+
+[connection signal="pressed" from="hbox/vbox/vbox/continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="hbox/vbox/vbox/restart_day" to="." method="_on_restart_day_pressed"]
+[connection signal="drag_ended" from="hbox/vbox/settings/music_slider" to="." method="_on_music_slider_drag_ended"]
+[connection signal="drag_ended" from="hbox/vbox/settings/effects_slider" to="." method="_on_effects_slider_drag_ended"]
+[connection signal="pressed" from="hbox/vbox/fullscreen" to="." method="_on_fullscreen_pressed"]

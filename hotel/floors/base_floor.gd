@@ -1,7 +1,11 @@
 extends NavigationRegion3D
 
+var floor_color := "red"
+
 func _ready() -> void:
 	$roof.visible = true
+	for carpet in $carpets.get_children():
+		carpet.texture = load(str("res://hotel/texture/corridor_carpets/", floor_color, ".png"))
 
 func generate_navigation() -> void:
 	var _navigation := NavigationMesh.new()

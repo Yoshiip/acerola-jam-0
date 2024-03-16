@@ -1,18 +1,20 @@
-[gd_scene load_steps=40 format=3 uid="uid://x1v2lv7gfck7"]
+[gd_scene load_steps=45 format=3 uid="uid://x1v2lv7gfck7"]
 
 [ext_resource type="Script" path="res://hotel/hotel.gd" id="1_uo5k1"]
 [ext_resource type="PackedScene" uid="uid://bxceah5i7vtbr" path="res://entities/player/player.tscn" id="4_oo632"]
 [ext_resource type="PackedScene" uid="uid://cxagi1n7gqgl0" path="res://hotel/floors/0.tscn" id="5_boy7x"]
+[ext_resource type="Shader" path="res://hotel/dithering.gdshader" id="5_nx8hi"]
 [ext_resource type="Theme" uid="uid://cljv3o1v8gskw" path="res://resources/theme.tres" id="6_1ca3e"]
 [ext_resource type="Script" path="res://ui/inventory_container_ui.gd" id="6_fj0gl"]
 [ext_resource type="Script" path="res://ui/customer_status/customer_status_ui.gd" id="7_yhv2t"]
 [ext_resource type="Texture2D" uid="uid://bnijbdu2xgp6" path="res://ui/day_logo_background.png" id="8_1jgb8"]
 [ext_resource type="Script" path="res://hotel/generation.gd" id="8_xtxd2"]
 [ext_resource type="PackedScene" uid="uid://xpiiugyb1hkr" path="res://ui/computer.tscn" id="9_imrjw"]
-[ext_resource type="Script" path="res://ui/pause.gd" id="10_2en4d"]
 [ext_resource type="Script" path="res://ui/prop_hint/prop_hints_container.gd" id="10_siprg"]
-[ext_resource type="Texture2D" uid="uid://bwyyrp2fj8p5n" path="res://ui/logo.png" id="10_u8w5m"]
+[ext_resource type="PackedScene" uid="uid://6uqmx88c0qy5" path="res://ui/pause.tscn" id="11_dxean"]
 [ext_resource type="Shader" path="res://hotel/post_process.gdshader" id="11_m7gn2"]
+[ext_resource type="Shader" path="res://hotel/shaders/border.gdshader" id="12_lyjy2"]
+[ext_resource type="Texture2D" uid="uid://dd1s527jej8l0" path="res://ui/cleanliness.png" id="13_uvmy6"]
 [ext_resource type="AudioStream" uid="uid://nmni4pva2u6r" path="res://audios/musics/0.mp3" id="14_wpbj6"]
 [ext_resource type="AudioStream" uid="uid://cutvkmudvmhlj" path="res://audios/musics/1.mp3" id="15_e3nja"]
 [ext_resource type="AudioStream" uid="uid://bpv0t3jrfbout" path="res://audios/effects/door.mp3" id="15_ya7kd"]
@@ -20,6 +22,8 @@
 [ext_resource type="AudioStream" uid="uid://cb17qqng5dtpj" path="res://audios/musics/3.mp3" id="17_4lakg"]
 [ext_resource type="AudioStream" uid="uid://cluq0a6fqjboy" path="res://audios/musics/4.mp3" id="18_oi1rq"]
 [ext_resource type="AudioStream" uid="uid://dhqk5gh57if2k" path="res://audios/musics/5.mp3" id="19_c4sp1"]
+[ext_resource type="AudioStream" uid="uid://b31x83ena3unh" path="res://audios/effects/elevator_bell.mp3" id="22_4xfhn"]
+[ext_resource type="AudioStream" uid="uid://cn8y0r0qvi0xw" path="res://audios/effects/plinth.mp3" id="23_yvux8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7g1ar"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -44,12 +48,12 @@ adjustment_saturation = 1.2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_40mjw"]
 render_priority = 0
 shader = ExtResource("11_m7gn2")
-shader_parameter/outlineColor = Color(0, 0, 0, 0.78)
+shader_parameter/outlineColor = Color(0.164706, 0.113725, 0.0509804, 0.67451)
 shader_parameter/depth_threshold = 0.025
 shader_parameter/normal_threshold = 0.5
 shader_parameter/normal_smoothing = 0.25
 shader_parameter/max_thickness = 1.3
-shader_parameter/min_thickness = 0.5
+shader_parameter/min_thickness = 1.3
 shader_parameter/max_distance = 75.0
 shader_parameter/min_distance = 2.0
 shader_parameter/grazing_fresnel_power = 5.0
@@ -60,6 +64,14 @@ shader_parameter/grazing_angle_modulation_factor = 50.0
 material = SubResource("ShaderMaterial_40mjw")
 flip_faces = true
 size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_je6gq"]
+shader = ExtResource("12_lyjy2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8lewv"]
+shader = ExtResource("5_nx8hi")
+shader_parameter/n = 16.0
+shader_parameter/col_mix = 0.5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kylkn"]
 bg_color = Color(1, 1, 1, 0.498039)
@@ -81,6 +93,49 @@ shadow_offset = Vector2(0, 0.5)
 content_margin_left = 2.0
 content_margin_right = 2.0
 bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_t20a2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t1aya"]
+resource_name = "fade"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_blvi8"]
+_data = {
+"RESET": SubResource("Animation_t20a2"),
+"fade": SubResource("Animation_t1aya")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kec81"]
+bg_color = Color(0, 0, 0, 0.498039)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_420rw"]
+bg_color = Color(0.635294, 0.294118, 0.435294, 1)
 
 [sub_resource type="Animation" id="Animation_cblih"]
 length = 0.001
@@ -136,104 +191,6 @@ _data = {
 "fade_out": SubResource("Animation_rrngi")
 }
 
-[sub_resource type="Animation" id="Animation_jds6q"]
-resource_name = "tutorial"
-length = 24.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(7.2, 7.7, 9.7, 22.2, 23),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:text")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(6.8, 10.9, 14.5, 17.4, 20.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": ["Use mouse scroll to switch between items", "E to interact with an item", "F to pick up something", "Mouse left click to use holded item", "G to pack an item"]
-}
-
-[sub_resource type="Animation" id="Animation_pq54q"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:text")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["Move with ZQSD/WASD"]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gxwip"]
-_data = {
-"RESET": SubResource("Animation_pq54q"),
-"tutorial": SubResource("Animation_jds6q")
-}
-
-[sub_resource type="Animation" id="Animation_t20a2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_t1aya"]
-resource_name = "fade"
-length = 8.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 5, 8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_blvi8"]
-_data = {
-"RESET": SubResource("Animation_t20a2"),
-"fade": SubResource("Animation_t1aya")
-}
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85b3k"]
 transparency = 1
 albedo_color = Color(0.243137, 1, 1, 0.498039)
@@ -273,6 +230,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("6_1ca3e")
+
+[node name="vignette" type="ColorRect" parent="canvas/container"]
+material = SubResource("ShaderMaterial_je6gq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="dithering" type="ColorRect" parent="canvas/container"]
+material = SubResource("ShaderMaterial_8lewv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="crosshair" type="Panel" parent="canvas/container"]
 custom_minimum_size = Vector2(4, 4)
@@ -393,40 +371,6 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 2
 
-[node name="transition" type="ColorRect" parent="canvas/container"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0)
-metadata/_edit_lock_ = true
-
-[node name="animation_player" type="AnimationPlayer" parent="canvas/container/transition"]
-libraries = {
-"": SubResource("AnimationLibrary_pw7gi")
-}
-autoplay = "RESET"
-
-[node name="tutorial" type="Label" parent="canvas/container"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 202.0
-offset_right = 314.0
-offset_bottom = 273.0
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 20
-text = "Move with ZQSD/WASD"
-autowrap_mode = 3
-
-[node name="animation_player" type="AnimationPlayer" parent="canvas/container/tutorial"]
-libraries = {
-"": SubResource("AnimationLibrary_gxwip")
-}
-autoplay = "tutorial"
-
 [node name="day" type="TextureRect" parent="canvas/container"]
 self_modulate = Color(1, 1, 1, 0.705882)
 custom_minimum_size = Vector2(69, 0)
@@ -500,101 +444,63 @@ script = ExtResource("10_siprg")
 visible = false
 layout_mode = 1
 
-[node name="pause" type="ColorRect" parent="canvas/container"]
-process_mode = 3
+[node name="pause" parent="canvas/container" instance=ExtResource("11_dxean")]
 visible = false
+layout_mode = 1
+
+[node name="cleanliness" type="ProgressBar" parent="canvas/container"]
+modulate = Color(1, 1, 1, 0.498039)
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -56.0
+offset_right = -8.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_kec81")
+theme_override_styles/fill = SubResource("StyleBoxFlat_420rw")
+max_value = 1.0
+value = 1.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Cleanliness" type="TextureRect" parent="canvas/container/cleanliness"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = 2.0
+offset_right = 5.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("13_uvmy6")
+
+[node name="transition" type="ColorRect" parent="canvas/container"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.498039)
-script = ExtResource("10_2en4d")
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true
 
-[node name="vbox" type="VBoxContainer" parent="canvas/container/pause"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -113.0
-offset_right = 128.0
-offset_bottom = 113.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="logo" type="TextureRect" parent="canvas/container/pause/vbox"]
-custom_minimum_size = Vector2(0, 96)
-layout_mode = 2
-texture = ExtResource("10_u8w5m")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="HBoxContainer" type="VBoxContainer" parent="canvas/container/pause/vbox"]
-layout_mode = 2
-
-[node name="continue" type="Button" parent="canvas/container/pause/vbox/HBoxContainer"]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-text = "Continue"
-
-[node name="restart_day" type="Button" parent="canvas/container/pause/vbox/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Restart Day"
-
-[node name="settings" type="GridContainer" parent="canvas/container/pause/vbox"]
-layout_mode = 2
-columns = 2
-
-[node name="music_label" type="Label" parent="canvas/container/pause/vbox/settings"]
-layout_mode = 2
-text = "Music"
-
-[node name="music_slider" type="HSlider" parent="canvas/container/pause/vbox/settings"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="effects_label" type="Label" parent="canvas/container/pause/vbox/settings"]
-layout_mode = 2
-text = "Effects"
-
-[node name="effects_slider" type="HSlider" parent="canvas/container/pause/vbox/settings"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="fullscreen" type="CheckBox" parent="canvas/container/pause/vbox/settings"]
-layout_mode = 2
-text = "Fullscreen"
-
-[node name="main_menu" type="Button" parent="canvas/container/pause"]
-layout_mode = 1
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 82.0
-offset_bottom = 33.0
-text = "Main Menu"
-
-[node name="Label" type="Label" parent="canvas/container"]
-modulate = Color(1, 1, 1, 0.498039)
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 81.0
-offset_bottom = 25.0
-theme_override_colors/font_color = Color(0.176471, 0.176471, 0.176471, 1)
-theme_override_constants/outline_size = 0
-text = "UNFINISHED"
+[node name="animation_player" type="AnimationPlayer" parent="canvas/container/transition"]
+libraries = {
+"": SubResource("AnimationLibrary_pw7gi")
+}
+autoplay = "RESET"
 
 [node name="generation" type="Node" parent="."]
 script = ExtResource("8_xtxd2")
@@ -651,6 +557,7 @@ stream = ExtResource("19_c4sp1")
 bus = &"Music"
 
 [node name="update" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true
 
 [node name="music" type="Timer" parent="."]
@@ -659,12 +566,18 @@ wait_time = 88.88
 [node name="player_start_transform" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, -4.5)
 
-[connection signal="pressed" from="canvas/container/pause/vbox/HBoxContainer/continue" to="canvas/container/pause" method="_on_continue_pressed"]
-[connection signal="pressed" from="canvas/container/pause/vbox/HBoxContainer/restart_day" to="canvas/container/pause" method="_on_restart_day_pressed"]
-[connection signal="drag_ended" from="canvas/container/pause/vbox/settings/music_slider" to="canvas/container/pause" method="_on_music_slider_drag_ended"]
-[connection signal="drag_ended" from="canvas/container/pause/vbox/settings/effects_slider" to="canvas/container/pause" method="_on_effects_slider_drag_ended"]
-[connection signal="pressed" from="canvas/container/pause/vbox/settings/fullscreen" to="canvas/container/pause" method="_on_fullscreen_pressed"]
-[connection signal="pressed" from="canvas/container/pause/main_menu" to="canvas/container/pause" method="_on_main_menu_pressed"]
+[node name="effects" type="Node" parent="."]
+
+[node name="bell" type="AudioStreamPlayer" parent="effects"]
+stream = ExtResource("22_4xfhn")
+bus = &"Effects"
+
+[node name="plinth" type="AudioStreamPlayer" parent="effects"]
+stream = ExtResource("23_yvux8")
+bus = &"Effects"
+
 [connection signal="timeout" from="dirt_timer" to="." method="_on_dirt_timer_timeout"]
 [connection signal="timeout" from="update" to="." method="_on_update_timeout"]
 [connection signal="timeout" from="music" to="." method="_on_music_timeout"]
+
+[editable path="player"]

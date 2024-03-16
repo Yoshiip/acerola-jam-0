@@ -14,12 +14,15 @@ config/name="L'Hôtel Bizarre"
 config/description="TOURNEUR Aymeri"
 config/version="1.0.0"
 run/main_scene="res://menu/menu.tscn"
+config/custom_user_dir_name="HotelGame"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.121569, 0.141176, 0.0392157, 1)
 boot_splash/image="res://ui/logo_x2.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://ui/logo_x2.png"
+config/icon="res://ui/icon.png"
+config/macos_native_icon="res://ui/icon.icns"
+config/windows_native_icon="res://ui/icon.ico"
 
 [autoload]
 
@@ -38,7 +41,7 @@ mouse_cursor/custom_image="res://ui/cursor.png"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_owl/plugin.cfg")
+enabled=PackedStringArray("res://addons/freecam_3D/plugin.cfg", "res://addons/godot_owl/plugin.cfg")
 
 [file_customization]
 
@@ -145,6 +148,7 @@ escape={
 3d_physics/layer_6="Walls"
 3d_physics/layer_7="Rat"
 3d_physics/layer_8="Trap"
+3d_physics/layer_9="Player Ray"
 
 [navigation]
 

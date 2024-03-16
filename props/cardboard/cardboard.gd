@@ -1,21 +1,24 @@
 extends RigidProp
 
-var hotel : Hotel
 
 var inside : Node3D:
 	set(value):
 		if is_instance_valid(value):
 			inside = value
-			$name.text = hotel.ITEMS[inside.id].name
-			$icon.texture = hotel.ITEMS[inside.id].icon
-			description = description.replace("[OBJECT]", hotel.ITEMS[inside.id].name)
+			if inside.item_reference == null:
+				printerr("Invalid cardboard")
+				queue_free()
+				return
+			$name.text = inside.item_reference.name
+			$icon.texture = inside.item_reference.icon
+			description = description.replace("[OBJECT]", inside.item_reference.name)
 
 func _ready() -> void:
 	super()
 	self.inside = inside
 
 
-func interact(player : Player) -> void:
+func interact(_player : Player) -> void:
 	if is_instance_valid(inside):
 		add_sibling(inside)
 		inside.holded = false

@@ -37,7 +37,7 @@ func _ready() -> void:
 	$container/vbox/grid/happiness_value.text = str("+", _happiness_today)
 	$container/vbox/grid/happiness_total.text = str("(total: ", PlayerData.reputation, ")")
 
-	$container/vbox/grid/money_value.text = str("+", _happiness_today, "c")
+	$container/vbox/grid/money_value.text = str("+", _money_today, "c")
 	$container/vbox/grid/money_total.text = str("(total: ", PlayerData.money, "c)")
 	
 	$container/vbox/level/vbox/progress.text = str("next level in ", PlayerData.reputation_objective - PlayerData.reputation)
@@ -53,9 +53,14 @@ var rewards_labels := {
 
 var tips := [
 	"Rodents can't reach high objects.",
+	"A hole can only hold 5 rodents.",
+	"The elevators have a magic technology that shows on the screen how many rodents are on a floor.",
+	"Gifts make your customers happy. Give them as many as you can!",
+	"Some guests want to be placed in high hotel floors, while others feel dizzy. Take a good look!",
 	"The rodents you scare will be terrified and won't come out until the day after tomorrow!",
 	"To assign a room to a customer, you can either use the whistle on the door or bring the customer inside.",
-	"A rodent nest is destroyed if there are no rodents in it, or if all the rodents inside are terrorized."
+	"A rodent nest is destroyed if there are no rodents in it, or if all the rodents inside are terrorized.",
+	"Rodents get bigger naturally and when they steal things from you. A large rodent will fly faster.",
 ]
 
 var i = 0.0
@@ -115,7 +120,11 @@ func _on_continue_pressed() -> void:
 	if !PlayerData.game_over:
 		for label in PlayerData.rewards_to_apply:
 			messages.append(str("Congratulations on your performance!\n", rewards_labels[label]))
-		messages.append("Tip:\n" + tips.pick_random())
+		if PlayerData.day == 1:
+			messages.append("Did you notice the computer in your room? Remember to check it regularly.\n" +
+			"It'll give you lots of useful information about the hotel.");
+		else:
+			messages.append("Tip:\n" + tips.pick_random())
 	show_next_message()
 
 func show_next_message() -> void:

@@ -1,13 +1,16 @@
 extends StaticBody3D
 
-@onready var hotel : Hotel = get_tree().current_scene
+@onready var hotel : Hotel
 
 var transitioning := false
+
+var floor_color := ""
 
 @onready var screen_floor : int:
 	set(value):
 		screen_floor = value
 		$panel/current_floor.text = str(screen_floor + 1)
+		$panel/rat.visible = hotel.get_rats_at_floor(screen_floor) > 0
 
 func door_animate(close = false, instant = false) -> void:
 	
@@ -20,17 +23,22 @@ func door_animate(close = false, instant = false) -> void:
 
 
 func _ready() -> void:
+	$lift/walls_002.set("surface_material_override/0", load(str("res://resources/materials/", floor_color, "_wallpaper.tres")))
 	hotel.new_day_started.connect(new_day_started)
+	hotel.rats_changed.connect(_rat_changed)
+
+func _rat_changed() -> void:
+	self.screen_floor = screen_floor # update rat icon
 
 func new_day_started() -> void:
 	if hotel.max_floor == 1:
 		door_animate(true, true)
 	else:
 		door_animate(false)
-		if get_node_or_null("broken"):
-			$broken.queue_free()
 
 func change_floor(by : int) -> void:
+	$button.pitch_scale = 0.8 + fposmod($button.pitch_scale + (by / 16.0), 0.4)
+	$button.play()
 	if by == 0 && !transitioning:
 		door_animate(true)
 		transitioning = true

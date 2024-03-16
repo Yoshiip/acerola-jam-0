@@ -6,11 +6,12 @@
 
 [resource]
 script = ExtResource("3_22j55")
+type = 1
 id = "carpet"
 name = "Carpet"
-description = "Une jolie décoration pour vos clients!
-
-You can paint it with a bucket of paint."
+description = "A lovely rug for your customers bedrooms."
 icon = ExtResource("1_w5dv8")
 prop = ExtResource("2_b32mp")
-price = 20
+price = 40
+decorative_value = 0
+paintable = true

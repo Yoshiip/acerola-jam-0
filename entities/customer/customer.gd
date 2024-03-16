@@ -73,9 +73,6 @@ func _ready() -> void:
 
 	update_description()
 	nav_agent.target_position = Vector3(randf_range(-2, 2), 0, -1)
-	#light = randi_range(-1, 1)
-	#smell = randi_range(-1, 1)
-	#sounds = randi_range(-1, 1)
 
 func update_description() -> void:
 	var desc := ""
@@ -88,8 +85,6 @@ func update_description() -> void:
 	if vip:
 		desc += "[color='efac28']This customer is VIP. Treat him as well as possible and he will reward you well![/color]\n"
 	desc += str("His favorite color is [color=", Color(favorite_color).lightened(0.5).to_html(false), "]", favorite_color, "[/color]\n")
-	if nature != "normal":
-		desc += str(nature.capitalize(), "\n")
 	if long_stay:
 		desc += "Long stay\n"
 	#if light: desc += str("love" if light == 1 else "hate" , " light\n")
@@ -121,7 +116,7 @@ func calculate_happiness() -> void:
 					_summary.append([str("nice ", furniture.display_name.to_lower(), " color"), 1])
 				if furniture.get("decoration_value"):
 					_summary.append([furniture.display_name.to_lower(), furniture.get("decoration_value")])
-	if !_uniques_furnitures.has("bed"): _summary.append(["no bed ?", -5])
+	if !_uniques_furnitures.has("bed"): _summary.append(["no bed ?", -10])
 	
 	
 	var _garbage_props : int = hotel.get_total_dirts_object_floor(get_floor())
@@ -149,9 +144,9 @@ func calculate_happiness() -> void:
 		happiness += value[1]
 	
 	if vip:
-		money_per_night = base_money + max(floor(happiness * 0.8), 0)
-	else:
 		money_per_night = (base_money * 2) + max(floor(happiness * 2.4), 0)
+	else:
+		money_per_night = base_money + max(floor(happiness * 0.8), 0)
 	update_description()
 	hotel.get_node("canvas/container/customer_status").display(_summary)
 

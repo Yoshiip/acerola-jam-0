@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dwxgvnwwvilaq" path="res://entities/rat/Rat.glb" id="1_r0i6e"]
 [ext_resource type="Texture2D" uid="uid://cnwebl6uv0ise" path="res://entities/rat/ear.png" id="3_vu3dv"]
 [ext_resource type="Texture2D" uid="uid://bqbetwndk4xic" path="res://entities/rat/particles.png" id="4_qdp7e"]
+[ext_resource type="AudioStream" uid="uid://digmpe17fxiur" path="res://audios/effects/swoosh.mp3" id="5_7gwy5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_y6qio"]
 radius = 0.25
@@ -117,11 +118,8 @@ shader_parameter/texture_albedo = ExtResource("4_qdp7e")
 material = SubResource("ShaderMaterial_ll23s")
 size = Vector2(0.1, 0.1)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_0v773"]
-radius = 0.001
-
 [node name="rat" type="CharacterBody3D"]
-collision_layer = 64
+collision_layer = 384
 collision_mask = 64
 script = ExtResource("1_a8hsv")
 id = "rat"
@@ -232,18 +230,9 @@ target_desired_distance = 0.5
 [node name="Propeller hat" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.993566, -0.113255, 0, 0.113255, 0.993566, -0.000597358, 0.136157, 0.161456)
 
-[node name="trap_area" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 128
-
-[node name="collision" type="CollisionShape3D" parent="trap_area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_0v773")
-
-[node name="trap_area_timer" type="Timer" parent="."]
-autostart = true
-
-[connection signal="body_entered" from="trap_area" to="." method="_on_trap_area_body_entered"]
-[connection signal="timeout" from="trap_area_timer" to="." method="_on_trap_area_timer_timeout"]
+[node name="pickup" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_7gwy5")
+pitch_scale = 1.3
+bus = &"Effects"
 
 [editable path="rat"]

@@ -12,7 +12,8 @@ radius = 0.25
 [node name="bouncing_ball" instance=ExtResource("1_73rbo")]
 physics_material_override = SubResource("PhysicsMaterial_7wqjy")
 ghost = 1
-monkey = 2
+monkey = 3
+donut = 1
 general = 1
 id = "bouncing_ball"
 

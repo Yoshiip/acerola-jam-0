@@ -6,9 +6,12 @@
 
 [resource]
 script = ExtResource("1_jw1au")
+type = 0
 id = "trap"
 name = "Trap"
 description = ""
 icon = ExtResource("1_e5ig6")
 prop = ExtResource("2_8qpeb")
-price = 10
+price = 20
+decorative_value = 0
+paintable = false

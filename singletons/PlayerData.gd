@@ -3,7 +3,7 @@ extends Node
 var day := 0
 
 var unique_customers := 0
-var vip_chance := 6
+var vip_chance := 8
 var money := 100
 
 var reputation := 0

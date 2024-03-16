@@ -87,6 +87,11 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0112
 transform = Transform3D(1.94707e-07, 0, -1, 0, 1, 0, 1, 0, 1.94707e-07, -0.0257218, 1.57977, 0)
 
 [node name="RandomHat" parent="monkey" index="5" instance=ExtResource("4_cemi2")]
-transform = Transform3D(5.05223e-08, -0.0962333, 0.678207, 8.41298e-09, 0.678207, 0.0962333, -0.685, 1.23184e-09, 5.12032e-08, 0, 1.61889, 0)
+transform = Transform3D(4.42531e-08, -0.0842919, 0.59405, 7.36903e-09, 0.59405, 0.0842919, -0.6, 1.07899e-09, 4.48495e-08, 0, 1.564, 0)
+
+[node name="2" parent="monkey/RandomHat" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.392, 0.015)
 
 [editable path="monkey"]
+[editable path="monkey/RandomHat"]
+[editable path="monkey/RandomHat/2"]

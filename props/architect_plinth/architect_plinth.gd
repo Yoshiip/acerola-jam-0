@@ -38,7 +38,4 @@ func interact(player : Player) -> void:
 			"floor": get_floor(),
 			"rebake_floor": true,
 		}, _name)
-		get_parent().collision_layer = 0
-		get_parent().collision_mask = 0
-		get_parent().get_node("construction").visible = false
-		queue_free()
+		get_parent().queue_free()

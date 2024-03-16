@@ -1,8 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8slmuoqkrv3x"]
+[gd_scene load_steps=5 format=3 uid="uid://c8slmuoqkrv3x"]
 
 [ext_resource type="Script" path="res://ui/hotel_stars_hbox.gd" id="1_sgfai"]
 [ext_resource type="Texture2D" uid="uid://fwqexd6a0gbq" path="res://ui/star_star_under.png" id="2_0n8og"]
 [ext_resource type="Texture2D" uid="uid://m8lg20gijl6m" path="res://ui/star_1.png" id="2_10d8a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iuvgo"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 2.0
+expand_margin_right = 2.0
 
 [node name="hbox" type="Control"]
 custom_minimum_size = Vector2(176, 32)
@@ -12,7 +21,23 @@ offset_right = 100.0
 offset_bottom = 32.0
 script = ExtResource("1_sgfai")
 
-[node name="0" type="TextureProgressBar" parent="."]
+[node name="stars" type="Control" parent="."]
+custom_minimum_size = Vector2(176, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -16.0
+offset_right = 88.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="0" type="TextureProgressBar" parent="stars"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -25,11 +50,12 @@ offset_right = -56.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 allow_lesser = true
 texture_under = ExtResource("2_0n8og")
 texture_progress = ExtResource("2_10d8a")
 
-[node name="1" type="TextureProgressBar" parent="."]
+[node name="1" type="TextureProgressBar" parent="stars"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -42,11 +68,12 @@ offset_right = -20.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 allow_lesser = true
 texture_under = ExtResource("2_0n8og")
 texture_progress = ExtResource("2_10d8a")
 
-[node name="2" type="TextureProgressBar" parent="."]
+[node name="2" type="TextureProgressBar" parent="stars"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,11 +86,12 @@ offset_right = 16.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 allow_lesser = true
 texture_under = ExtResource("2_0n8og")
 texture_progress = ExtResource("2_10d8a")
 
-[node name="3" type="TextureProgressBar" parent="."]
+[node name="3" type="TextureProgressBar" parent="stars"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -76,11 +104,12 @@ offset_right = 52.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 allow_lesser = true
 texture_under = ExtResource("2_0n8og")
 texture_progress = ExtResource("2_10d8a")
 
-[node name="4" type="TextureProgressBar" parent="."]
+[node name="4" type="TextureProgressBar" parent="stars"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -93,6 +122,28 @@ offset_right = 88.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 allow_lesser = true
 texture_under = ExtResource("2_0n8og")
 texture_progress = ExtResource("2_10d8a")
+
+[node name="xp" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_iuvgo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

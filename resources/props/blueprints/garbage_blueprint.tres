@@ -6,9 +6,12 @@
 
 [resource]
 script = ExtResource("3_p0vf4")
+type = 2
 id = "garbage_blueprint"
 name = "Garbage Blueprint"
 description = "A garbage room. Allows you to throw away anything and everything, mainly garbage."
 icon = ExtResource("1_k58to")
 prop = ExtResource("2_p2id7")
-price = 200
+price = 250
+decorative_value = 0
+paintable = false

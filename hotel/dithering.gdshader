@@ -1,18 +1,15 @@
 shader_type canvas_item;
 
-// Ranges from 0 to 1 over the course of the transition.
-// We use this to actually animate the shader.
-uniform float progress : hint_range(0, 1);
+uniform float n = 4.0;
+uniform float col_mix = 1.0;
 
-// Size of each diamond, in pixels.
-uniform float diamondPixelSize = 10.0f;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture;
 
 void fragment() {
-	float xFraction = fract(FRAGCOORD.x / diamondPixelSize);
-	float yFraction = fract(FRAGCOORD.y / diamondPixelSize);
-	float xDistance = abs(xFraction - 0.5f);
-	float yDistance = abs(yFraction - 0.5f);
-	if (xDistance + yDistance + UV.x + UV.y > progress * 4.0f) {
-		discard;
-	}
+	vec4 original_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 color = original_color;
+	color.r = floor(color.r * (n - 1.0) + 0.5) / (n - 1.0);
+	color.g = floor(color.g * (n - 1.0) + 0.5) / (n - 1.0);
+	color.b = floor(color.b * (n - 1.0) + 0.5) / (n - 1.0);
+	COLOR = mix(original_color, color, col_mix);
 }

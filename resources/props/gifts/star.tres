@@ -6,9 +6,12 @@
 
 [resource]
 script = ExtResource("3_oc7ed")
+type = 0
 id = "star"
 name = "Star"
 description = ""
 icon = ExtResource("1_0ya62")
 prop = ExtResource("2_yjfu2")
-price = 20
+price = 25
+decorative_value = 0
+paintable = false

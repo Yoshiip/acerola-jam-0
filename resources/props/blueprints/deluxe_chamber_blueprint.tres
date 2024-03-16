@@ -6,9 +6,12 @@
 
 [resource]
 script = ExtResource("1_s67v2")
+type = 2
 id = "deluxe_chamber_blueprint"
 name = "Deluxe Chamber Blueprint"
 description = "A luxury room. The customer will be delighted to stay there!"
 icon = ExtResource("1_oi2gp")
 prop = ExtResource("2_gt8x7")
-price = 350
+price = 300
+decorative_value = 0
+paintable = false

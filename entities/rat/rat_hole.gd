@@ -10,11 +10,12 @@ var rats_inside : Array[Dictionary] = [
 
 func _ready() -> void:
 	add_to_group("Hole")
-	$timer.wait_time = randi_range(45, 70)
+	#$timer.wait_time = randi_range(1, 2)
+	$timer.wait_time = randi_range(50, 70)
 	$timer.start()
 	for i in randi_range(1, 3):
 		rats_inside.append({
-			"size": randf_range(1.0, 1.4),
+			"size": randf_range(1.0, 1.2),
 			"color": "black",
 			"terrified": false,
 			"out_today": false,
@@ -26,26 +27,41 @@ func _ready() -> void:
 func new_day_started() -> void:
 	if rats_inside.is_empty():
 		queue_free()
+	var _all_terrified = true
 	for rat in rats_inside:
 		if rat.terrified:
 			rat.terrified = false
 		else:
+			_all_terrified = false
 			rat.out_today = false
-		rat.size += randf_range(0.2, 0.4)
+		grow_rat(rat, randf_range(0.2, 0.4))
+	if _all_terrified:
+		queue_free()
+
+func grow_rat(rat : Dictionary, by : float) -> void:
+	rat.size = min(rat.size + by, 4)
 
 func get_entrance_point() -> Vector3:
 	return global_position + (-transform.basis.z * 0.25)
 
 func rat_entered(rat : Rat) -> void:
-	rats_inside.append({
-		"size": rat.size,
-		"color": "black",
-		"out_today": true,
-		"terrified": rat.terrified
-	})
+	if rats_inside.size() < 5:
+		rats_inside.append({
+			"size": rat.size,
+			"color": "black",
+			"out_today": true,
+			"terrified": rat.terrified
+		})
+	else:
+		for rat_data in rats_inside:
+			grow_rat(rat_data, rat.size / 5.0)
 	rat.queue_free()
 	if is_instance_valid(rat.picked_prop):
+		for rat_data in rats_inside:
+			grow_rat(rat_data, 0.2)
+
 		rat.picked_prop.queue_free()
+	hotel.emit_signal("rats_changed")
 
 func release_rat() -> void:
 	if rats_inside.is_empty() || hotel.time_left <= 0:
@@ -55,9 +71,10 @@ func release_rat() -> void:
 			rats_inside.erase(rat)
 			var _rat_scene := RAT.instantiate()
 			_rat_scene.size = rat.size
+			_rat_scene.start_hole = self
 			add_sibling(_rat_scene)
 			$rat_release.play()
-			_rat_scene.global_position = get_entrance_point()
+			hotel.emit_signal("rats_changed")
 			return
 
 func get_floor() -> int:

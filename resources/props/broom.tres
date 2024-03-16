@@ -6,9 +6,12 @@
 
 [resource]
 script = ExtResource("3_6vqsu")
+type = 0
 id = "broom"
 name = "Broom"
 description = "Use it to clean up water puddles"
 icon = ExtResource("1_j7lbl")
 prop = ExtResource("2_820hv")
-price = 10
+price = 15
+decorative_value = 0
+paintable = false

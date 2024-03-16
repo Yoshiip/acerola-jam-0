@@ -7,8 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://sw28nums3ofm" path="res://entities/rat/hats/random_hat.tscn" id="5_y12ni"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6vtkb"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.831373)
 
 [sub_resource type="Animation" id="Animation_uc1wp"]
 length = 0.001
@@ -34,7 +32,19 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.831373)]
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ghost/Ghost:surface_material_override/0:transparency")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_2fsfe"]
@@ -65,6 +75,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.121569), Color(1, 1, 1, 0.121569), Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ghost/Ghost:surface_material_override/0:transparency")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.6, 4.4, 5.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 1, 0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4tcj4"]
 _data = {
@@ -82,7 +104,10 @@ display_name = "Ghost"
 surface_material_override/0 = SubResource("StandardMaterial3D_6vtkb")
 
 [node name="RandomHat" parent="ghost" index="2" instance=ExtResource("5_y12ni")]
-transform = Transform3D(-1, 0, 8.74228e-08, 1.22817e-08, 0.990083, 0.140487, -8.65558e-08, 0.140487, -0.990083, 0, 1.115, 0.052)
+transform = Transform3D(-1, 0, 8.74228e-08, 1.22817e-08, 0.990083, 0.140487, -8.65558e-08, 0.140487, -0.990083, 0, 1, 0)
+
+[node name="2" parent="ghost/RandomHat" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412, 0.015)
 
 [node name="Sprite3D" type="Sprite3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.005, 0)
@@ -97,3 +122,5 @@ libraries = {
 autoplay = "eyes"
 
 [editable path="ghost"]
+[editable path="ghost/RandomHat"]
+[editable path="ghost/RandomHat/2"]

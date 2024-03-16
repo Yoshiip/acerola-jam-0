@@ -22,11 +22,15 @@ var floors_upgrade : Array[Array] = [
 
 func shop_screen() -> void:
 	var _floor_upgrade_data : Array = floors_upgrade[hotel.hotel_floors.size()]
-	$panel/Shop/vbox/build_new_floor/price.text = str(_floor_upgrade_data[0], "c")
-	$panel/Shop/vbox/build_new_floor/stars.text = str("(Need ", _floor_upgrade_data[1], " stars)")
-	$panel/Shop/vbox/build_new_floor.disabled = _floor_upgrade_data[0] > PlayerData.money || _floor_upgrade_data[1] > PlayerData.reputation_level
+	$panel/Shop/scroll/vbox/build_new_floor/price.text = str(_floor_upgrade_data[0], "c")
+	$panel/Shop/scroll/vbox/build_new_floor/stars.text = str("(Need ", _floor_upgrade_data[1], " stars)")
+	$panel/Shop/scroll/vbox/build_new_floor.disabled = _floor_upgrade_data[0] > PlayerData.money || _floor_upgrade_data[1] > PlayerData.reputation_level
 	
-	for child in $panel/Shop/vbox/grid.get_children():
+	for child in $panel/Shop/scroll/vbox/items_grid.get_children():
+		child.queue_free()
+	for child in $panel/Shop/scroll/vbox/furnitures_grid.get_children():
+		child.queue_free()
+	for child in $panel/Shop/scroll/vbox/blueprints_grid.get_children():
 		child.queue_free()
 	for item in hotel.ITEMS.values():
 		if item.price != 0:
@@ -34,14 +38,29 @@ func shop_screen() -> void:
 			_button.get_node("name").text = item.name.replace(" Blueprint", "")
 			_button.get_node("price").text = str(item.price, "c")
 			_button.get_node("icon").texture = item.icon
+			_button.mouse_entered.connect(_item_button_mouse_entered.bind(item))
+			_button.mouse_exited.connect(_item_button_mouse_exited.bind(item))
 			_button.get_node("price").set("theme_override_colors/font_color", Color("ef3a0c") if item.price > PlayerData.money else Color.WHITE)
 			
 			_button.get_node("Button").disabled = item.price > PlayerData.money
 			_button.get_node("Button").pressed.connect(_shop_button_pressed.bind(item.id))
-			if item.name.contains("blueprint"):
-				$panel/Shop/vbox/blueprints.add_child(_button)
-			else:
-				$panel/Shop/vbox/grid.add_child(_button)
+			match item.type:
+				0:
+					$panel/Shop/scroll/vbox/items_grid.add_child(_button)
+				1:
+					$panel/Shop/scroll/vbox/furnitures_grid.add_child(_button)
+				2:
+					$panel/Shop/scroll/vbox/blueprints_grid.add_child(_button)
+
+func _item_button_mouse_entered(item : Item) -> void:
+	$panel/Shop/info.visible = true
+	$panel/Shop/info/title.text = item.name
+	$panel/Shop/info/description.text = item.description
+	if item.paintable:
+		$panel/Shop/info/description.text += "\n\n[color='1ebc73']Furniture paintable[/color]"
+
+func _item_button_mouse_exited(btn : Item) -> void:
+	$panel/Shop/info.visible = false
 
 const NUMBER_TO_STR = [
 	"First",
@@ -55,6 +74,10 @@ const NUMBER_TO_STR = [
 ]
 
 const CHAMBER_SCREEN_UI = preload("res://ui/customers_screen/chamber_screen_ui.tscn")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause") && visible:
+		_on_close_pressed()
 
 func customers_screen() -> void:
 	for child in $panel/Customers/scroll/vbox.get_children():
@@ -107,6 +130,7 @@ func display() -> void:
 	for child in $panel.get_children():
 		child.custom_minimum_size.x = $panel.size.x - 32
 		child.get_child(0).custom_minimum_size.x = $panel.size.x - 32
+	$panel/Shop/scroll.custom_minimum_size.x = $panel.size.x - 200
 	shop_screen()
 	customers_screen()
 	overview_screen()

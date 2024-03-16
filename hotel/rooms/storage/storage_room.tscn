@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://rcnnuflicu1d"]
+[gd_scene load_steps=10 format=3 uid="uid://rcnnuflicu1d"]
 
 [ext_resource type="PackedScene" uid="uid://ctibwcmuk2ps4" path="res://props/shelves/Shelves.glb" id="1_cgdac"]
+[ext_resource type="Script" path="res://hotel/rooms/storage/storage_room.gd" id="1_q2obt"]
 [ext_resource type="PackedScene" uid="uid://88liwcagfvv6" path="res://hotel/rooms/storage/storage.blend" id="2_1q3yr"]
 [ext_resource type="PackedScene" uid="uid://dk0tol0ywahyh" path="res://hotel/lights/light.tscn" id="3_4wihi"]
 
@@ -20,6 +21,7 @@ size = Vector3(1, 4, 6)
 size = Vector3(4, 4, 1)
 
 [node name="storage_room" type="StaticBody3D"]
+script = ExtResource("1_q2obt")
 
 [node name="floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.495, 0.5)
@@ -102,3 +104,54 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3.5)
 shape = SubResource("BoxShape3D_10xj5")
 
 [node name="light" parent="." instance=ExtResource("3_4wihi")]
+
+[node name="random_points" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19891, 0, 0.900546)
+
+[node name="Marker3D" type="Marker3D" parent="random_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0561365, 0.35, -0.661522)
+
+[node name="Marker3D2" type="Marker3D" parent="random_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.104048, 0.35, 0.574188)
+
+[node name="Marker3D3" type="Marker3D" parent="random_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0561365, 0.996903, -0.661522)
+
+[node name="Marker3D4" type="Marker3D" parent="random_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.104048, 0.996903, 0.574188)
+
+[node name="Marker3D5" type="Marker3D" parent="random_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0561365, 1.79395, -0.661522)
+
+[node name="Marker3D6" type="Marker3D" parent="random_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.104048, 1.79395, 0.574188)
+
+[node name="Marker3D7" type="Marker3D" parent="random_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0561365, 2.44085, -0.661522)
+
+[node name="Marker3D8" type="Marker3D" parent="random_points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.104048, 2.44085, 0.574188)
+
+[node name="Marker3D9" type="Marker3D" parent="random_points"]
+transform = Transform3D(0.959825, 0, -0.2806, 0, 1, 0, 0.2806, 0, 0.959825, 0.699916, 0.35, -3.04551)
+
+[node name="Marker3D10" type="Marker3D" parent="random_points"]
+transform = Transform3D(0.959825, 0, -0.2806, 0, 1, 0, 0.2806, 0, 0.959825, 0.199427, 0.35, -1.9044)
+
+[node name="Marker3D11" type="Marker3D" parent="random_points"]
+transform = Transform3D(0.959825, 0, -0.2806, 0, 1, 0, 0.2806, 0, 0.959825, 0.699916, 0.996903, -3.04551)
+
+[node name="Marker3D12" type="Marker3D" parent="random_points"]
+transform = Transform3D(0.959825, 0, -0.2806, 0, 1, 0, 0.2806, 0, 0.959825, 0.199427, 0.996903, -1.9044)
+
+[node name="Marker3D13" type="Marker3D" parent="random_points"]
+transform = Transform3D(0.959825, 0, -0.2806, 0, 1, 0, 0.2806, 0, 0.959825, 0.699916, 1.79395, -3.04551)
+
+[node name="Marker3D14" type="Marker3D" parent="random_points"]
+transform = Transform3D(0.959825, 0, -0.2806, 0, 1, 0, 0.2806, 0, 0.959825, 0.199427, 1.79395, -1.9044)
+
+[node name="Marker3D15" type="Marker3D" parent="random_points"]
+transform = Transform3D(0.959825, 0, -0.2806, 0, 1, 0, 0.2806, 0, 0.959825, 0.699916, 2.44085, -3.04551)
+
+[node name="Marker3D16" type="Marker3D" parent="random_points"]
+transform = Transform3D(0.959825, 0, -0.2806, 0, 1, 0, 0.2806, 0, 0.959825, 0.199427, 2.44085, -1.9044)

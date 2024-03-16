@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://docilpwmkjkc4"]
+[gd_scene load_steps=4 format=3 uid="uid://docilpwmkjkc4"]
+
+[ext_resource type="Theme" uid="uid://cljv3o1v8gskw" path="res://resources/theme.tres" id="1_lfcyj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrmqq"]
 bg_color = Color(0.572549, 0.494118, 0.415686, 1)
@@ -16,10 +18,25 @@ shadow_size = 4
 shadow_offset = Vector2(0, 2)
 anti_aliasing_size = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tv86e"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 0.741176)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.247059)
+shadow_size = 4
+shadow_offset = Vector2(0, 4)
+
 [node name="item_button" type="Panel"]
 custom_minimum_size = Vector2(112, 56)
 offset_right = 112.0
 offset_bottom = 56.0
+theme = ExtResource("1_lfcyj")
 theme_override_styles/panel = SubResource("StyleBoxFlat_mrmqq")
 
 [node name="icon" type="TextureRect" parent="."]
@@ -71,3 +88,22 @@ offset_bottom = -8.0
 grow_vertical = 0
 text = "10c"
 vertical_alignment = 1
+
+[node name="description" type="Label" parent="."]
+visible = false
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = -27.0
+offset_right = 96.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.164706, 0.113725, 0.0509804, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_tv86e")
+autowrap_mode = 3

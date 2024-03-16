@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("1_epowd")
+type = 1
 id = "fountain"
 name = "Fountain"
 description = "Serves no purpose...
@@ -13,3 +14,5 @@ But very pretty!"
 icon = ExtResource("1_lywhv")
 prop = ExtResource("2_a1k6c")
 price = 0
+decorative_value = 0
+paintable = false

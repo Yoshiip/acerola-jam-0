@@ -69,10 +69,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 32.0
-offset_right = -32.0
-offset_bottom = -32.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ymqfp")
@@ -125,37 +125,51 @@ value = 1.0
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Shop" type="ScrollContainer" parent="panel"]
+[node name="Shop" type="Control" parent="panel"]
 visible = false
-custom_minimum_size = Vector2(0, 256)
+custom_minimum_size = Vector2(320, 200)
 layout_mode = 2
+
+[node name="scroll" type="ScrollContainer" parent="panel/Shop"]
+custom_minimum_size = Vector2(272, 256)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -164.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cvxm3")
 follow_focus = true
 
-[node name="vbox" type="VBoxContainer" parent="panel/Shop"]
-custom_minimum_size = Vector2(380, 200)
+[node name="vbox" type="VBoxContainer" parent="panel/Shop/scroll"]
+custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+alignment = 1
 
-[node name="title" type="Label" parent="panel/Shop/vbox"]
+[node name="title" type="Label" parent="panel/Shop/scroll/vbox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.937255, 0.847059, 0.631373, 1)
+theme_override_colors/font_shadow_color = Color(0.937255, 0.411765, 0.184314, 1)
+theme_override_constants/shadow_offset_y = 4
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 20
 text = "Shop"
+horizontal_alignment = 1
 
-[node name="description" type="Label" parent="panel/Shop/vbox"]
-custom_minimum_size = Vector2(320, 0)
+[node name="description" type="Label" parent="panel/Shop/scroll/vbox"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Welcome to the shop.
-Here you can buy items for the benefit of your customers.
+text = "Here you can buy items for the benefit of your customers.
 You can also buy blueprints, which can be used to build rooms in your hotel."
 autowrap_mode = 3
 
-[node name="build_new_floor" type="Button" parent="panel/Shop/vbox"]
+[node name="build_new_floor" type="Button" parent="panel/Shop/scroll/vbox"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "Build new floor"
 
-[node name="stars" type="Label" parent="panel/Shop/vbox/build_new_floor"]
+[node name="stars" type="Label" parent="panel/Shop/scroll/vbox/build_new_floor"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -173,7 +187,7 @@ theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 10
 text = "(Need 5 stars)"
 
-[node name="price" type="Label" parent="panel/Shop/vbox/build_new_floor"]
+[node name="price" type="Label" parent="panel/Shop/scroll/vbox/build_new_floor"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -191,35 +205,91 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 16
 text = "1000c"
 
-[node name="0" type="HSeparator" parent="panel/Shop/vbox"]
+[node name="0" type="HSeparator" parent="panel/Shop/scroll/vbox"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxFlat_6v7b0")
 
-[node name="items" type="Label" parent="panel/Shop/vbox"]
+[node name="items" type="Label" parent="panel/Shop/scroll/vbox"]
 layout_mode = 2
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 16
-text = "ITEMS"
+text = "items"
+uppercase = true
 
-[node name="grid" type="GridContainer" parent="panel/Shop/vbox"]
+[node name="items_grid" type="GridContainer" parent="panel/Shop/scroll/vbox"]
 layout_mode = 2
-columns = 3
+columns = 2
 
-[node name="1" type="HSeparator" parent="panel/Shop/vbox"]
+[node name="1" type="HSeparator" parent="panel/Shop/scroll/vbox"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxFlat_6v7b0")
 
-[node name="blueprints" type="Label" parent="panel/Shop/vbox"]
+[node name="furnitures" type="Label" parent="panel/Shop/scroll/vbox"]
 layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+text = "furnitures"
+uppercase = true
+
+[node name="furnitures_grid" type="GridContainer" parent="panel/Shop/scroll/vbox"]
+layout_mode = 2
+columns = 2
+
+[node name="2" type="HSeparator" parent="panel/Shop/scroll/vbox"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_6v7b0")
+
+[node name="blueprints" type="Label" parent="panel/Shop/scroll/vbox"]
+layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
 text = "BLUEPRINTS"
+uppercase = true
 
-[node name="blueprints_grid" type="GridContainer" parent="panel/Shop/vbox"]
+[node name="blueprints_grid" type="GridContainer" parent="panel/Shop/scroll/vbox"]
 layout_mode = 2
-columns = 3
+columns = 2
 
-[node name="2" type="HSeparator" parent="panel/Shop/vbox"]
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxFlat_6v7b0")
+[node name="info" type="Panel" parent="panel/Shop"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="title" type="Label" parent="panel/Shop/info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 17.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 16
+text = "Item title"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="description" type="RichTextLabel" parent="panel/Shop/info"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 56.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 11
+bbcode_enabled = true
+text = "The whistle can be used to call hotel guests to join you.
+You can also use the whistle on a room door, which will assign the room to the guest if he's close enough."
 
 [node name="Customers" type="VBoxContainer" parent="panel"]
 visible = false
@@ -270,5 +340,5 @@ volume_db = -8.0
 max_polyphony = 8
 bus = &"Effects"
 
-[connection signal="pressed" from="panel/Shop/vbox/build_new_floor" to="." method="_on_build_new_floor_pressed"]
+[connection signal="pressed" from="panel/Shop/scroll/vbox/build_new_floor" to="." method="_on_build_new_floor_pressed"]
 [connection signal="pressed" from="close" to="." method="_on_close_pressed"]

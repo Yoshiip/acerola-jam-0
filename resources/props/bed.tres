@@ -6,11 +6,12 @@
 
 [resource]
 script = ExtResource("3_8fu0j")
+type = 1
 id = "bed"
 name = "Bed"
-description = "The most important piece of furniture in any hotel, isn't it?
-
-You can paint it with a bucket of paint."
+description = "The most important piece of furniture in any hotel, isn't it?"
 icon = ExtResource("1_dxdh5")
 prop = ExtResource("2_mh45v")
-price = 30
+price = 40
+decorative_value = 0
+paintable = true

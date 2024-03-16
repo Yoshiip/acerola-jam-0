@@ -6,10 +6,13 @@
 
 [resource]
 script = ExtResource("1_qt736")
+type = 2
 id = "whistle"
 name = "Whistle"
 description = "The whistle can be used to call hotel guests to join you.
 You can also use the whistle on a room door, which will assign the room to the guest if he's close enough."
 icon = ExtResource("1_lqvfb")
 prop = ExtResource("2_1wtf8")
-price = 10
+price = 15
+decorative_value = 0
+paintable = false

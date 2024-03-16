@@ -1,11 +1,13 @@
 extends StaticBody3D
 
+const WALLPAPERS := {
+	"red": preload("res://resources/materials/red_wallpaper.tres"),
+	"green": preload("res://resources/materials/green_wallpaper.tres"),
+	"blue": preload("res://resources/materials/blue_wallpaper.tres"),
+	"purple": preload("res://resources/materials/purple_wallpaper.tres"),
+}
 
-# Called when the node enters the scene tree for the first time.
+var color := "red"
+
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	$mesh/wall.set("surface_material_override/0", WALLPAPERS[color])
